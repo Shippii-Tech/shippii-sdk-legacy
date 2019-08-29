@@ -1,0 +1,27 @@
+{
+    "name": "shippii/sdk",
+    "license": "proprietary",
+    "description": "SDK For shippii.com",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Petyo Tsonev",
+            "email": "p.tsonev@vconnect.dk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Shippii\\": "src/"}
+    },
+    "minimum-stability": "stable",
+    "require-dev": {
+        "symfony/var-dumper": "~3.3",
+        "fzaninotto/faker": "^1.8",
+        "phpunit/phpunit": "^6"
+    },
+    "require": {
+        "php": ">=7.0",
+        "php-units-of-measure/php-units-of-measure": "^2.1",
+        "tightenco/collect": "5.5.*",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}
