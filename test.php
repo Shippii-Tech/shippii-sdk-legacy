@@ -2,6 +2,9 @@
 include_once 'vendor/autoload.php';
 
 use Faker\Factory;
+use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
+use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
+use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Orders\Order;
 use Shippii\Orders\OrderItem;
@@ -32,20 +35,41 @@ $order->setPayFromWallet(true)
 
 dump($order);
 
-for ($i = 0; $i < 2; $i++) {
+$items = [
+    [
+        'name' => 'Man Shoes', // required
+        'ean' => '1232131212', // optional
+        'price' => 50.00, // float. required This is the price for SINGLE item
+        'quantity' => 1, // int/float required This is the quantity shipped.
+        'weight' => 3.21, // float required The weight of the SINGLE item
+        'sku' => 'ITEM123213' // You can put your Item ID here for instance.
+    ]
+];
+
+foreach ($items as $item) {
     $orderItem = new OrderItem();
-    $orderItem->setName($faker->words(2, true));
-    $orderItem->setEan($faker->ean13);
-    $orderItem->setPrice($faker->randomFloat(2, 1));
-    $orderItem->setQuantity($faker->randomNumber(1));
-    $orderItem->setWeight($faker->randomFloat(1, 1, 5));
-    $orderItem->setSku($faker->randomNumber());
+    $orderItem->setName($item['name']);
+    $orderItem->setEan($item['ean']);
+    $orderItem->setPrice($item['price']);
+    $orderItem->setQuantity($item['quantity']);
+    $orderItem->setWeight($item['weight']);
+    $orderItem->setSku($item['sku']);
     $order->setOrderItem($orderItem);
-};
+}
+
 try {
     $response = $shippii->setOrder($order)->sendOrder();
-    dump($test);
+
 } catch (ShippiiValidationException $shippiiValidationException) {
-    dump($shippiiValidationException->getValidationErrors());
+    print_r($shippiiValidationException->getValidationErrors());
+} catch (ShippiiServerErrorException $shippiiServerErrorException) {
+    print_r([
+        'message' => $shippiiServerErrorException->getMessage(),
+        'shippii_event_id' => $shippiiServerErrorException->getEventId()
+    ]);
+} catch (ShippiiAuthorizationException $authorizationException) {
+    print "You're app does not have the needed token scope";
+} catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
+    print "You are not authenticated. Please check your token";
 }
 
