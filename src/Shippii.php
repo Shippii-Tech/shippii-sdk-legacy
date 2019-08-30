@@ -73,6 +73,7 @@ class Shippii
     protected function prepareOrder()
     {
         $result = $this->order->getReceiver()->toArray();
+        $result += $this->order->getOrderOptions()->toArray();
         $result['items'] = $this->order->getOrderItems()->toArray();
         return collect(['json' => $result]);
     }
@@ -91,7 +92,7 @@ class Shippii
         $orderData = $this->prepareOrder();
         $connection = new Connector($this->token);
         $response = $connection->request('post', 'order', 'v1', $orderData);
-        dump($response);
+        return $response->toArray();
     }
 
 }

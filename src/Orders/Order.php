@@ -19,18 +19,35 @@ class Order
 
     public function __construct()
     {
+        $this->options = collect();
         $this->receiverData = collect();
         $this->orderItems = collect();
     }
 
     /**
+     * Set Receiver Data
+     *
      * @param string $key
      * @param $value
      * @return Order
      */
-    private function setReceiverData(string $key, $value)
+    private function setReceiverData(string $key, $value): Order
     {
-        $this->receiverData = $this->receiverData->put($key, $value);
+        $this->receiverData->put($key, $value);
+        return $this;
+    }
+
+
+    /**
+     * Set Options
+     *
+     * @param string $key
+     * @param $value
+     * @return Order
+     */
+    private function setOptionsData(string $key, $value): Order
+    {
+        $this->options->put($key, $value);
         return $this;
     }
 
@@ -154,6 +171,51 @@ class Order
     {
         $this->orderItems->push(collect($orderItem->toArray()));
         return $this;
+    }
+
+    /**
+     * Pay From Wallet
+     * @param bool $val
+     * @return $this
+     */
+    public function setPayFromWallet(bool $val)
+    {
+        $this->setOptionsData('pay_from_company_wallet', $val);
+        return $this;
+    }
+
+    public function setShippingRateId(string $shippingRateId)
+    {
+        $this->setOptionsData('shipping_rate_id', $shippingRateId);
+    }
+
+    /**
+     * Set Order Reference
+     *
+     * @param string $reference
+     * @return Order
+     */
+    public function setReference(string $reference): Order
+    {
+        $this->setOptionsData('reference', $reference);
+        return  $this;
+    }
+
+    /**
+     * Billing Same As Shipment
+     *
+     * @param bool $val
+     * @return Order
+     */
+    public function setBillingAddressSameAsShipment(bool $val = true): Order
+    {
+        $this->setOptionsData('billing_address_same_as_shipment', $val);
+        return $this;
+    }
+
+    public function getOrderOptions(): Collection
+    {
+        return $this->options;
     }
 
     /**
