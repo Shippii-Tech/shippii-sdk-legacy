@@ -72,4 +72,3 @@ try {
 } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
     print "You are not authenticated. Please check your token";
 }
-

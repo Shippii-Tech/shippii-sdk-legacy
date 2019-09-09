@@ -105,3 +105,125 @@ try {
     print "You are not authenticated. Please check your token";
 }
 ```
+
+Get All Shipping Methods
+```php
+use Shippii\Shippii;
+use Shippii\Shipping\ShippingMethods;
+
+    $token = 'YOUR APP TOKEN';
+    $testMode = true;
+
+    $shippii = new Shippii($token, $testMode);
+
+    $shippingMethod = new ShippingMethod($shippii);
+
+    try {
+        $response = $shippingMethods->getShippingMethods();
+
+        // Example Response
+        /* array:6 [▼
+            "headers" => array:6 [▶]
+            "request" => null
+            "success" => true
+            "http_code" => 200
+            "message" => null
+            "data" => array:1 [▼
+                0 => array:15 [▼
+                "id" => "Gogbqe"
+                "name" => "Ascendia Shipping Method"
+                "description" => "Some shipping method description"
+                "fuel_surcharge" => null
+                "for_return" => false
+                "on_pallet" => false
+                "pickup_point" => false
+                "pickup_point_id" => null
+                "max_weight" => "100.000"
+                "max_height" => "100.000"
+                "max_length" => "100.000"
+                "max_width" => "100.000"
+                "is_active" => true
+                "created_at" => "2019-09-05T09:16:40.000000Z"
+                "updated_at" => "2019-09-05T09:22:43.000000Z"
+                ]
+            ]
+        ] */
+        } catch (ShippiiValidationException $validationException) {
+            print_r($validationException->getValidationErrors());
+        } catch (ShippiiServerErrorException $serverErrorException) {
+            print_r([
+                'message' => $serverErrorException->getMessage(),
+                'shippii_event_id' => $serverErrorException->getEventId()
+            ]);
+        } catch (ShippiiAuthorizationException $authorizationException) {
+            print 'Your app does not have the needed token scope';
+        } catch (ShippiiAuthenticationException $authenticationException) {
+            print "You are not authenticated. Please check your token.";
+        }
+    }
+```
+
+Get All Shipping Rates
+```php
+use Shippii\Shippii;
+use Shippii\Shipping\ShippingRate;
+
+    $token = 'YOUR APP TOKEN';
+    $testMode = true;
+
+    $shippii = new Shippii($token, $testMode);
+
+    $shippingRate = new ShippingRate($shippii);
+
+    try {
+        $response = $shippingRate->getShippingRates();
+
+        // Example Response
+        /* array:6 [▼
+            "headers" => array:6 [▶]
+            "request" => null
+            "success" => true
+            "http_code" => 200
+            "message" => null
+            "data" => array:2 [▼
+                0 => array:22 [▼
+                "id" => "vq5jon"
+                "name" => "Shipping rate demo"
+                "shipping_fee" => null
+                "shipping_fuel_surcharge" => null
+                "from_postcode" => null
+                "to_postcode" => null
+                "for_return" => false
+                "on_pallet" => false
+                "max_weight" => null
+                "min_weight" => null
+                "max_height" => null
+                "min_height" => null
+                "max_length" => null
+                "min_length" => null
+                "max_width" => null
+                "min_width" => null
+                "is_active" => true
+                "shipping_method" => array:16 [▶]
+                "receiver_countries" => array:1 [▶]
+                "sender_countries" => array:1 [▶]
+                "created_at" => "2019-09-05T11:01:06.000000Z"
+                "updated_at" => "2019-09-05T11:01:06.000000Z"
+                ]
+                1 => array:22 [▶]
+            ]
+        ] */
+    }
+    } catch (ShippiiValidationException $validationException) {
+        print_r($validationException->getValidationErrors());
+    } catch (ShippiiServerErrorException $serverErrorException) {
+        print_r([
+            'message' => $serverErrorException->getMessage(),
+            'shippii_event_id' => $serverErrorException->getEventId()
+        ]);
+    } catch (ShippiiAuthorizationException $authorizationException) {
+        print 'Your app does not have the needed token scope';
+    } catch (ShippiiAuthenticationException $authenticationException) {
+        print "You are not authenticated. Please check your token.";
+    }
+```
