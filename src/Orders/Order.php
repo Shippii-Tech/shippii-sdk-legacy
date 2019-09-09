@@ -198,7 +198,7 @@ class Order
     public function setReference(string $reference): Order
     {
         $this->setOptionsData('reference', $reference);
-        return  $this;
+        return $this;
     }
 
     /**

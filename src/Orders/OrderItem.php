@@ -117,5 +117,4 @@ class OrderItem
         return $this->items->toArray();
     }
 
-
 }
