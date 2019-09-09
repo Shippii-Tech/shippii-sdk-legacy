@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
+use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Tightenco\Collect\Support\Arr;
@@ -40,7 +41,6 @@ class Connector
      * @var Client
      */
     protected $client;
-
 
     /**
      * @var string
@@ -92,7 +92,6 @@ class Connector
         ];
     }
 
-
     /**
      * Get the base url
      *
@@ -103,7 +102,7 @@ class Connector
         return $this->testMode ? self::SHIPPII_SANDBOX_URL : self::SHIPPII_PRODUCTION_URL;
     }
 
-    protected function prepareRequestConfiguration(Collection $requestData): array
+    protected function prepareRequestConfiguration(Collection $requestData = null): array
     {
         $result = [];
 
@@ -128,13 +127,13 @@ class Connector
     protected function parseResponse(Response $response): Collection
     {
         $responseResult = collect();
-        $body = json_decode($response->getBody()->getContents());
+        $body = json_decode($response->getBody()->getContents(), true);
         $responseResult->put('headers', $response->getHeaders());
         $responseResult->put('request', null);
         $responseResult->put('success', data_get($body, 'success'));
         $responseResult->put('http_code', $response->getStatusCode());
         $responseResult->put('message', data_get($body, 'message'));
-        $responseResult->put('data', collect(data_get($body, 'data')));
+        $responseResult->put('data', data_get($body, 'data'));
 
         return $responseResult;
     }
@@ -175,6 +174,9 @@ class Connector
                 case 403:
                     throw new ShippiiAuthorizationException($parsedResponseResult->get('message'));
                     break;
+                case 404:
+                    throw new ShippiiEndpointNotFoundException();
+                    break;
                 case 422:
                     throw new ShippiiValidationException($parsedResponseResult->get('message'), (array)data_get($responseBody, 'errors'));
                 case 500:
@@ -202,6 +204,8 @@ class Connector
      */
     public function request(string $method, string $endPoint, string $version = "v1", Collection $requestData = null): Collection
     {
+        $requestData = (is_null($requestData)) ? collect() : $requestData;
+
         $requestConfig = $this->prepareRequestConfiguration($requestData);
         $endPoint = $version . '/' . $endPoint;
 
