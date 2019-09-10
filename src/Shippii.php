@@ -4,6 +4,7 @@ namespace Shippii;
 
 use phpDocumentor\Reflection\Types\Void_;
 use Shippii\Orders\Order;
+use Shippii\Shipping\ShippingMethod;
 use Tightenco\Collect\Support\Collection;
 
 /**
@@ -27,8 +28,19 @@ class Shippii
      */
     protected $order;
 
+    /**
+     * @var ShippingMethod $shippingMethod
+     */
+    protected $shippingMethod;
+
+    /**
+     * @var Connector $connector
+     */
+    public $connector;
+
     public function __construct(string $token, bool $testMode)
     {
+        $this->connector = new Connector($token, $testMode);
         $this->testMode = $testMode;
         $this->token = $token;
     }
