@@ -5,7 +5,7 @@ namespace Shippii;
 use phpDocumentor\Reflection\Types\Void_;
 use Shippii\Orders\Order;
 use Shippii\Shipping\ShippingMethod;
-use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 /**
  * Class Shippii
@@ -80,9 +80,9 @@ class Shippii
 
     /**
      * Prepare The Order
-     * @return \Illuminate\Support\Collection|Collection
+     * @return TightencoCollection
      */
-    protected function prepareOrder()
+    protected function prepareOrder(): TightencoCollection
     {
         $result = $this->order->getReceiver()->toArray();
         $result += $this->order->getOrderOptions()->toArray();
