@@ -48,16 +48,23 @@ class Connector
     protected $token;
 
     /**
+     * @var string $baseUrl
+     */
+    protected $baseUrl;
+
+    /**
      * Connector constructor.
      * @param string $token
      * @param bool $testMode
+     * @param string|null $baseUrl
      * @param string $clientId
      */
-    public function __construct(string $token, bool $testMode = true, string $clientId = "1")
+    public function __construct(string $token, bool $testMode = true, string $baseUrl = null, string $clientId = "1")
     {
         $this->clientId = $clientId;
         $this->testMode = $testMode;
         $this->token = $token;
+
         $this->boot();
     }
 
@@ -99,6 +106,9 @@ class Connector
      */
     protected function getBaseUrl(): string
     {
+        if (!is_null($this->baseUrl)) {
+            return  $this->baseUrl;
+        }
         return $this->testMode ? self::SHIPPII_SANDBOX_URL : self::SHIPPII_PRODUCTION_URL;
     }
 
@@ -145,6 +155,7 @@ class Connector
      * @return \Illuminate\Support\Collection|Collection
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
      */
@@ -199,6 +210,7 @@ class Connector
      * @return Collection
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
      */
@@ -213,7 +225,7 @@ class Connector
             $response = $this->parseResponse($this->client->request($method, $endPoint, $requestConfig));
             return $response;
         } catch (ClientException $clientException) {
-            return  $this->parseClientErrors($clientException);
+            return $this->parseClientErrors($clientException);
         } catch (GuzzleException $e) {
             dump($e->getMessage());
         }

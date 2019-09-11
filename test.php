@@ -11,7 +11,7 @@ use Shippii\Orders\OrderItem;
 use Shippii\Shippii;
 
 $shippii = new Shippii(
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjFiMGYzODBiZTU1MDQzODk2NTJkNzA2NmE5ZjUxNzBmNDQyZTY3MjNkMzBjODRmMjEwNjZlYmFhZGE1ZjlhMDRlYTNkNjBlOTkyYTEzZTM1In0.eyJhdWQiOiIxIiwianRpIjoiMWIwZjM4MGJlNTUwNDM4OTY1MmQ3MDY2YTlmNTE3MGY0NDJlNjcyM2QzMGM4NGYyMTA2NmViYWFkYTVmOWEwNGVhM2Q2MGU5OTJhMTNlMzUiLCJpYXQiOjE1NjY4MjI4MzksIm5iZiI6MTU2NjgyMjgzOSwiZXhwIjoxNTk4NDQ1MjM5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ApotxOjKNJv-OkrWJZ5aNmvk6Ks7nEXOIGrXezhN3gFQKPgMrBP709ov_6Gpphu4DJqaIw73AoaqOry1n4pL6QaeYD1jYF21_ZSgmLdhkN26BD7LorSBviDuQzlXMpTuy4aQW2sVccRnEnjaEBddQ4_zfaGoRGgYOYsEN0Ti4Gnd4p-uI7udSTMVzXB0Py4ZeBRPO3KEqPsAiDeSOfy1ZhY0tKr8GkY5w5BiAtrxzK-mCPDAukH_MMCyCgwenP8xrzTbeKz88Wcy3D2nk655x0Lj357rvWSMJB5HmCOgMcftxrMpUAE6Q6qj2tlNbbPw75YUjLD3-aNM7EYret8I6It5c3gbP0sqMCPR2d9YTnmkumk__InVJBFgt5kRGs8vlcIBYrWNE0DTj5LqZOhrCWUcX_YxQHLSWbqfqSUSlthzZE6df30q5upiqEGgm2ja33OTAZgSfF_Ma5ZOqnYzOpgvk2F6piJxMgINFOUpysdIoaOmfvqJHgYLStYBl8_FUeAoTH79KPEFIxNUdrBIKvSqi8vLmr0hKd5AQBtm4RhJ1qqK9J4PQX7fGpo5DdmO6k9uB-cmfef-AgfKSxA1X6ryFZiKUez23oafs4K47PjjP7Ftv4mFYzdmhkhY0HAkk07UB8DPQr-espf7RO9rZSGdjR9Fv0rUhx2kJrNu7Z4',
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlkOWYyOGIwNGU1ODQxOTI2NmMyY2U5YjQzNTc5MDhmZjI2ZWU4NjE5YTRmNGI3ZTdkNDBmYzY2ZjBjMGQ2NWY2MmVmNTU5NGJkZWUwNGI2In0.eyJhdWQiOiIxIiwianRpIjoiOWQ5ZjI4YjA0ZTU4NDE5MjY2YzJjZTliNDM1NzkwOGZmMjZlZTg2MTlhNGY0YjdlN2Q0MGZjNjZmMGMwZDY1ZjYyZWY1NTk0YmRlZTA0YjYiLCJpYXQiOjE1NjgxMDAyOTYsIm5iZiI6MTU2ODEwMDI5NiwiZXhwIjoxNTk5NzIyNjk2LCJzdWIiOiI4Iiwic2NvcGVzIjpbImZ1bGwtYWNjZXNzLXRvLWNvbXBhbnktb3JkZXJzIiwiY2FuLWZldGNoLW1ldGhvZHMiLCJjYW4tZmV0Y2gtc2hpcHBpbmctcmF0ZXMiXX0.hKPRJEqXZgFuyOSe8bn544U86jQh13uRBfcUBXziJkP9-WmiDiowfFj-hPBag2F3qalpYQPbymRjUbSuFodZj3y003e466hTY1TrDE3ylJHWjUw23a1XJkJotP83vVauEiyDIH_fUyqyrS1q8bGw8-iPMsS7P2ZPeXa-YG9KS2k6Ywt6DlNXq0YjMcjT1mgLQ-SMUS75T8tCHwwh78iKfSGqjkBq2eRfsSgAEg1AJtQR8smWu6SG17XcyEmN1JmMH5qc1mEHbwxCT8CSXeFLeR3Vtp3RJGi2v-nrALwSn5Y3NCw_BoD8mZBArtEiaxUVvIqrK74L34MNkr8t-jiDcILEw_Buw-t_8rBvFtbBNS08madWKuuvTWFikYEDpqKlUC6qIDzNcVYlx1DkahWVCuCvhUfV11-SC4ik9YDMTURNWa7dSvwsi10X74clA0qljNzFb3RwYtI3-2k8B_hT0prYRgDADYle1xDtTrOiIn_DysM2c2rE6gq0bojv6KERxYT7OOw4ZjXvI0xbHmaCirWJ_BEtx1YrxQt796AkSHamhJbI5owamBxdeFyXrazuHoYk6cjcOciGhoKHcFiltC1W3Fdkl5J4eFMYQvNswnaL_BbI-Ux-uF9wFQ3bry6yTJA3Ohhs11LGkWeI-_CK5EwwVO203uT2iePqVbGFn88',
     true
 );
 
@@ -28,12 +28,9 @@ $order->setReceiverCity($faker->city);
 $order->setReceiverProvince($faker->country);
 $order->setReceiverZipCode($faker->postcode);
 $order->setReceiverCountryCode('NO');
-$order->setPayFromWallet(true)
+$order->setPayFromWallet(false)
     ->setReference($faker->randomNumber(5))
-    ->setBillingAddressSameAsShipment()
-    ->setShippingRateId("96vyGZ");
-
-dump($order);
+    ->setBillingAddressSameAsShipment();
 
 $items = [
     [
@@ -57,9 +54,11 @@ foreach ($items as $item) {
     $order->setOrderItem($orderItem);
 }
 
+dump($order);
+
 try {
     $response = $shippii->setOrder($order)->sendOrder();
-
+    dump($response);
 } catch (ShippiiValidationException $shippiiValidationException) {
     print_r($shippiiValidationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {
