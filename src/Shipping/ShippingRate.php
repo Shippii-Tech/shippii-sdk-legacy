@@ -2,6 +2,11 @@
 
 namespace Shippii\Shipping;
 
+use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
+use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
+use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\ShippiiServerErrorException;
+use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
 
 class ShippingRate
@@ -18,8 +23,13 @@ class ShippingRate
 
     /**
      * Get All Shipping Rates
-     *  
+     *
      * @return array
+     * @throws ShippiiAuthenticationException
+     * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
+     * @throws ShippiiServerErrorException
+     * @throws ShippiiValidationException
      */
     public function getShippingRates(): array
     {

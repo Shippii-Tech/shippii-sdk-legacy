@@ -1,25 +1,29 @@
 <?php
 namespace Shippii;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
 use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
-use Tightenco\Collect\Support\Arr;
-use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Arr as TightencoArr;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
+/**
+ * Class Connector
+ * @package Shippii
+ */
 class Connector
 {
     const SHIPPII_PRODUCTION_URL = 'https://api.shippii.com/';
     const SHIPPII_SANDBOX_URL = 'https://test-api.shippii.com/';
     const SHIPPII_SDK_VERSION = "1.0.1";
-    const SHIPPII_TIMEOUT_SECONDS = 4;
+    const SHIPPII_TIMEOUT_SECONDS = 40;
 
     /**
      * Running in test mode
@@ -48,17 +52,24 @@ class Connector
     protected $token;
 
     /**
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      * Connector constructor.
      * @param string $token
      * @param bool $testMode
+     * @param string|null $baseUrl
      * @param string $clientId
      */
-    public function __construct(string $token, bool $testMode = true, string $clientId = "1")
+    public function __construct(string $token, bool $testMode = true, string $baseUrl = null, string $clientId = "1")
     {
         $this->clientId = $clientId;
         $this->testMode = $testMode;
         $this->token = $token;
         $this->boot();
+        $this->baseUrl = $baseUrl;
     }
 
     /**
@@ -99,20 +110,29 @@ class Connector
      */
     protected function getBaseUrl(): string
     {
+        if (!(is_null($this->baseUrl))) {
+            return $this->baseUrl;
+        }
         return $this->testMode ? self::SHIPPII_SANDBOX_URL : self::SHIPPII_PRODUCTION_URL;
     }
 
-    protected function prepareRequestConfiguration(Collection $requestData = null): array
+    /**
+     * Prepare Request Configuration
+     *
+     * @param TightencoCollection|null $requestData
+     * @return array
+     */
+    protected function prepareRequestConfiguration(TightencoCollection $requestData = null): array
     {
         $result = [];
 
-        Arr::set($result, 'timeout', self::SHIPPII_TIMEOUT_SECONDS);
+        TightencoArr::set($result, 'timeout', self::SHIPPII_TIMEOUT_SECONDS);
 
         if ($requestData->has('query')) {
-            Arr::set($result, 'query', $requestData->get('query'));
+            TightencoArr::set($result, 'query', $requestData->get('query'));
         }
         if ($requestData->has('json')) {
-            Arr::set($result, 'json', $requestData->get('json'));
+            TightencoArr::set($result, 'json', $requestData->get('json'));
         }
 
         return $result;
@@ -122,11 +142,11 @@ class Connector
      * Parse the Response
      *
      * @param $response
-     * @return Collection
+     * @return TightencoCollection
      */
-    protected function parseResponse(Response $response): Collection
+    protected function parseResponse(Response $response): TightencoCollection
     {
-        $responseResult = collect();
+        $responseResult = new TightencoCollection();
         $body = json_decode($response->getBody()->getContents(), true);
         $responseResult->put('headers', $response->getHeaders());
         $responseResult->put('request', null);
@@ -138,26 +158,58 @@ class Connector
         return $responseResult;
     }
 
+
+    /**
+     * @param Exception $exception
+     * @return TightencoCollection
+     * @throws ShippiiAuthenticationException
+     * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
+     * @throws ShippiiServerErrorException
+     * @throws ShippiiValidationException
+     */
+    protected function parseException(Exception $exception)
+    {
+        if ($exception instanceof ClientException) {
+            return $this->parseClientErrors($exception);
+        } elseif ($exception instanceof GuzzleException) {
+            return $this->parseGuzzleErrors($exception);
+        }
+    }
+
+    /**
+     * Parse Guzzle Itself Errors
+     *
+     * @param GuzzleException $guzzleException
+     * @return TightencoCollection
+     * @throws ShippiiServerErrorException
+     */
+    protected function parseGuzzleErrors(GuzzleException $guzzleException): TightencoCollection
+    {
+        throw new ShippiiServerErrorException($guzzleException->getMessage());
+    }
+
     /**
      * Parse Client Errors
      *
      * @param ClientException $clientException
-     * @return \Illuminate\Support\Collection|Collection
+     * @return TightencoCollection
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
      */
-    protected function parseClientErrors(ClientException $clientException)
+    protected function parseClientErrors(ClientException $clientException): TightencoCollection
     {
-        $parsedResponseResult = collect();
+        $parsedResponseResult = new TightencoCollection();
         $responseBody = null;
         $request = $clientException->getRequest();
         $hasResponse = $clientException->hasResponse();
         $parsedResponseResult->put('success', false);
         $parsedResponseResult->put('http_code', $clientException->getCode());
         $parsedResponseResult->put('message', $clientException->getMessage());
-        $parsedResponseResult->put('request', collect([
+        $parsedResponseResult->put('request', new TightencoCollection([
             'headers' => $request->getHeaders(),
             'uri' => $request->getUri(),
             'method' => $request->getMethod(),
@@ -166,7 +218,7 @@ class Connector
         if ($hasResponse) {
             $responseBody = json_decode($clientException->getResponse()->getBody()->getContents());
             $parsedResponseResult->put('message', data_get($responseBody, 'message'));
-            $parsedResponseResult->put('data', collect(data_get($responseBody, 'data')));
+            $parsedResponseResult->put('data', new TightencoCollection(data_get($responseBody, 'data')));
             switch ($clientException->getCode()) {
                 case 401:
                     throw new ShippiiAuthenticationException($parsedResponseResult->get('message'));
@@ -179,6 +231,7 @@ class Connector
                     break;
                 case 422:
                     throw new ShippiiValidationException($parsedResponseResult->get('message'), (array)data_get($responseBody, 'errors'));
+                    break;
                 case 500:
                     throw new ShippiiServerErrorException($parsedResponseResult->get('message'), data_get($responseBody, 'event_id'));
                     break;
@@ -195,16 +248,17 @@ class Connector
      * @param string $method
      * @param string $endPoint
      * @param string $version
-     * @param Collection|null $requestData
-     * @return Collection
+     * @param TightencoCollection $requestData
+     * @return TightencoCollection
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
      */
-    public function request(string $method, string $endPoint, string $version = "v1", Collection $requestData = null): Collection
+    public function request(string $method, string $endPoint, string $version = "v1", TightencoCollection $requestData = null): TightencoCollection
     {
-        $requestData = (is_null($requestData)) ? collect() : $requestData;
+        $requestData = (is_null($requestData)) ? new TightencoCollection() : $requestData;
 
         $requestConfig = $this->prepareRequestConfiguration($requestData);
         $endPoint = $version . '/' . $endPoint;
@@ -213,9 +267,9 @@ class Connector
             $response = $this->parseResponse($this->client->request($method, $endPoint, $requestConfig));
             return $response;
         } catch (ClientException $clientException) {
-            return  $this->parseClientErrors($clientException);
-        } catch (GuzzleException $e) {
-            dump($e->getMessage());
+            return $this->parseException($clientException);
+        } catch (GuzzleException $guzzleException) {
+            return  $this->parseException($guzzleException);
         }
     }
 }
