@@ -2,10 +2,8 @@
 
 namespace Shippii;
 
-use phpDocumentor\Reflection\Types\Void_;
 use Shippii\Orders\Order;
-use Shippii\Shipping\ShippingMethod;
-use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 /**
  * Class Shippii
@@ -29,18 +27,19 @@ class Shippii
     protected $order;
 
     /**
-     * @var ShippingMethod $shippingMethod
-     */
-    protected $shippingMethod;
-
-    /**
      * @var Connector $connector
      */
     public $connector;
 
-    public function __construct(string $token, bool $testMode)
+    /**
+     * Shippii constructor.
+     * @param string $token
+     * @param bool $testMode
+     * @param string|null $baseUrl
+     */
+    public function __construct(string $token, bool $testMode, string $baseUrl = null)
     {
-        $this->connector = new Connector($token, $testMode);
+        $this->connector = new Connector($token, $testMode, $baseUrl);
         $this->testMode = $testMode;
         $this->token = $token;
     }
@@ -80,14 +79,14 @@ class Shippii
 
     /**
      * Prepare The Order
-     * @return \Illuminate\Support\Collection|Collection
+     * @return TightencoCollection
      */
     protected function prepareOrder()
     {
         $result = $this->order->getReceiver()->toArray();
         $result += $this->order->getOrderOptions()->toArray();
         $result['items'] = $this->order->getOrderItems()->toArray();
-        return collect(['json' => $result]);
+        return new TightencoCollection(['json' => $result]);
     }
 
     /**
@@ -96,6 +95,7 @@ class Shippii
      * @return array
      * @throws Exceptions\Auth\ShippiiAuthenticationException
      * @throws Exceptions\Auth\ShippiiAuthorizationException
+     * @throws Exceptions\Auth\ShippiiEndpointNotFoundException
      * @throws Exceptions\ShippiiServerErrorException
      * @throws Exceptions\ShippiiValidationException
      */

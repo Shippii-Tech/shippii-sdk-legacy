@@ -227,3 +227,60 @@ use Shippii\Shipping\ShippingRate;
         print "You are not authenticated. Please check your token.";
     }
 ```
+
+####Get Live Price
+```php
+$testMode = true;
+$token = "Your Token Here";
+
+$shippii = new Shippii($token, $testMode);
+$livePrice = new LivePrice($shippii);
+
+$cartItems = [
+    [
+        'weight' => 5.0, // WEIGHT PER SINGLE ITEM !!!
+        'quantity' => 3
+    ],
+    [
+        'weight' => 1.0,
+        // WEIGHT PER SINGLE ITEM !!!
+        'quantity' => 10,
+        // You can set your measurement to be converted to kilograms. So if it's not kilograms put the measurement unit so you will be able to get the correct price
+        'weight_measurement' => 'grams'
+    ]
+];
+//Set the props
+$livePrice->setReceiverCountryCode('NO')
+    ->setReceiverZipCode('1063')
+    ->setCartItemsFromArray($cartItems);
+
+//Do the actual request
+try {
+    $response = $livePrice->getLivePrice();
+} catch (\Shippii\Exceptions\Auth\ShippiiAuthenticationException $e) {
+    print "Could not authenticate";
+} catch (\Shippii\Exceptions\Auth\ShippiiAuthorizationException $e) {
+    print "Action not allowed by Shippii";
+} catch (\Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException $e) {
+    print "Endpoint not found 404 !";
+} catch (\Shippii\Exceptions\ShippiiServerErrorException $e) {
+    print "Shippii returned 500 - The problem is in their machine :)";
+} catch (\Shippii\Exceptions\ShippiiValidationException $e) {
+    print "Validation Exception please fix the following errors";
+    dump($e->getValidationErrors());
+}
+```
+##### Example Get Live Price Response
+```json
+{
+  "success": true,
+  "message": null,
+  "http_code": 200,
+  "data": {
+    "shipping_method_name": "Flat",
+    "shipping_method_id": "96vyGZ",
+    "shipping_rate_name": "Asendia 0-30 KG",
+    "price": "119.00"
+  }
+}
+```
