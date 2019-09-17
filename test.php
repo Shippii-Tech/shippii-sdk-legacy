@@ -71,4 +71,6 @@ try {
     print "You're app does not have the needed token scope";
 } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
     print "You are not authenticated. Please check your token";
+} catch (\Shippii\Exceptions\ShippiiEndpointNotFoundException $e) {
+    print $e->getMessage();
 }

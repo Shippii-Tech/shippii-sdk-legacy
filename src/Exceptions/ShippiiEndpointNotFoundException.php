@@ -1,5 +1,5 @@
 <?php
-namespace Shippii\Exceptions\Auth;
+namespace Shippii\Exceptions;
 
 use Exception;
 
