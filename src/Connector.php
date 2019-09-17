@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
-use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Tightenco\Collect\Support\Arr as TightencoArr;
@@ -65,11 +65,11 @@ class Connector
      */
     public function __construct(string $token, bool $testMode = true, string $baseUrl = null, string $clientId = "1")
     {
+        $this->baseUrl = $baseUrl;
         $this->clientId = $clientId;
         $this->testMode = $testMode;
         $this->token = $token;
         $this->boot();
-        $this->baseUrl = $baseUrl;
     }
 
     /**
@@ -227,7 +227,7 @@ class Connector
                     throw new ShippiiAuthorizationException($parsedResponseResult->get('message'));
                     break;
                 case 404:
-                    throw new ShippiiEndpointNotFoundException();
+                    throw new ShippiiEndpointNotFoundException($parsedResponseResult->get('message'));
                     break;
                 case 422:
                     throw new ShippiiValidationException($parsedResponseResult->get('message'), (array)data_get($responseBody, 'errors'));
