@@ -43,7 +43,7 @@ class Label
 
         $requestData = new TightencoCollection();
         $requestData->put('query', [
-            'print' => $print,
+            'print' => (int)$print,
             'printer_id' => $printerId,
             'label_format' => $labelFormat
         ]);
@@ -76,7 +76,7 @@ class Label
         $endPoint = 'label/get/selected-orders';
         $requestData = new TightencoCollection();
         $requestData->put('query', [
-            'print' => $print,
+            'print' => (int)$print,
             'printer_id' => $printerId,
             'label_format' => $labelFormat
         ]);
