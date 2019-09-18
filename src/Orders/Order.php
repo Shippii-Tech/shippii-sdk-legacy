@@ -189,6 +189,11 @@ class Order
         $this->setOptionsData('shipping_rate_id', $shippingRateId);
     }
 
+    public function setShippingMethodId(string $shippingMethodId)
+    {
+        $this->setOptionsData('shipping_method_id', $shippingMethodId);
+    }
+
     /**
      * Set Order Reference
      *

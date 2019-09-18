@@ -29,6 +29,11 @@ class Shippii
     protected $order;
 
     /**
+     * @var Order $order
+     */
+    protected $orders;
+
+    /**
      * @var ShippingMethod $shippingMethod
      */
     protected $shippingMethod;
@@ -79,6 +84,18 @@ class Shippii
     }
 
     /**
+     * Set the orders array
+     *
+     * @param Order $order
+     * @return Shippii
+     */
+    public function setOrders(array $orders): Shippii
+    {
+        $this->orders = $orders;
+        return $this;
+    }
+
+    /**
      * Prepare The Order
      * @return TightencoCollection
      */
@@ -89,6 +106,21 @@ class Shippii
         $result['items'] = $this->order->getOrderItems()->toArray();
         return new TightencoCollection(['json' => $result]);
         return collect(['json' => $result]);
+    }
+
+    /**
+     * Prepare The Order
+     * @return TightencoCollection
+     */
+    protected function prepareBulkOrders(): TightencoCollection
+    {
+        foreach ($this->orders as $k => $order) {
+            $result['orders'][$k] = $this->order->getReceiver()->toArray();
+            $result['orders'][$k] += $this->order->getOrderOptions()->toArray();
+            $result['orders'][$k]['items'] = $this->order->getOrderItems()->toArray();
+        }
+
+        return new TightencoCollection(['json' => $result]);
     }
 
     /**
@@ -108,4 +140,20 @@ class Shippii
         return $response->toArray();
     }
 
+    /**
+     * Send the order
+     *
+     * @return array
+     * @throws Exceptions\Auth\ShippiiAuthenticationException
+     * @throws Exceptions\Auth\ShippiiAuthorizationException
+     * @throws Exceptions\ShippiiServerErrorException
+     * @throws Exceptions\ShippiiValidationException
+     */
+    public function sendBulkOrders($ordersForProcess): array
+    {
+        $ordersBulkData = $this->prepareBulkOrders();
+        $connection = $this->connector;
+        $response = $connection->request('post', 'order/store-bulk', 'v1', $ordersBulkData);
+        return $response->toArray();
+    }
 }
