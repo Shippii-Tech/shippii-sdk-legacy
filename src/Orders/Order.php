@@ -2,7 +2,7 @@
 
 namespace Shippii\Orders;
 
-use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 class Order
 {
@@ -16,17 +16,12 @@ class Order
      */
     private $orderItems;
 
-    /**
-     * @var Collection
-     */
-    private $options;
-
 
     public function __construct()
     {
-        $this->options = collect();
-        $this->receiverData = collect();
-        $this->orderItems = collect();
+        $this->options = new TightencoCollection();
+        $this->receiverData = new TightencoCollection();
+        $this->orderItems = new TightencoCollection();
     }
 
     /**
@@ -183,34 +178,15 @@ class Order
      * @param bool $val
      * @return $this
      */
-    public function setPayFromWallet(bool $val): Order
+    public function setPayFromWallet(bool $val)
     {
         $this->setOptionsData('pay_from_company_wallet', $val);
         return $this;
     }
 
-    /**
-     * Set Shipping Rate Id
-     *
-     * @param string $shippingRateId
-     * @return Order
-     */
-    public function setShippingRateId(string $shippingRateId): Order
+    public function setShippingRateId(string $shippingRateId)
     {
         $this->setOptionsData('shipping_rate_id', $shippingRateId);
-        return $this;
-    }
-
-    /**
-     * Set Shipping Method ID
-     *
-     * @param string $shippingMethodId
-     * @return $this
-     */
-    public function setShippingMethodId(string $shippingMethodId)
-    {
-        $this->setOptionsData('shipping_method_id', $shippingMethodId);
-        return $this;
     }
 
     /**
@@ -237,7 +213,7 @@ class Order
         return $this;
     }
 
-    public function getOrderOptions(): Collection
+    public function getOrderOptions(): TightencoCollection
     {
         return $this->options;
     }
@@ -245,7 +221,7 @@ class Order
     /**
      * @return Collection
      */
-    public function getOrderItems(): Collection
+    public function getOrderItems(): TightencoCollection
     {
         return $this->orderItems;
     }
@@ -255,7 +231,7 @@ class Order
      *
      * @return Collection
      */
-    public function getReceiver(): Collection
+    public function getReceiver(): TightencoCollection
     {
         return $this->receiverData;
     }
