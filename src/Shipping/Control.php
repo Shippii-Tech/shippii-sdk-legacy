@@ -8,22 +8,30 @@ use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
-class ShippingRate
+/**
+ * Class Control
+ * @package Shippii\Shipping
+ */
+class Control
 {
     /**
      * @var Shippii
      */
-    protected $shippii;
+    private $shippii;
 
+    /**
+     * Control constructor.
+     * @param Shippii $shippii
+     */
     public function __construct(Shippii $shippii)
     {
         $this->shippii = $shippii;
     }
 
     /**
-     * Get All Shipping Rates
-     *
+     * @param string $yourReference
      * @return array
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
@@ -31,9 +39,18 @@ class ShippingRate
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
      */
-    public function getShippingRates(): array
+    public function cancelShipment(string $yourReference): array
     {
-        $response = $this->shippii->connector->request('GET', 'shipping-rates');
-        return $response->toArray();
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $yourReference
+        ]);
+
+        return $this->shippii->connector->request('get', 'shipping/cancel', 'v1', $requestData)->toArray();
+    }
+
+    public function closeShipment(string $yourReference)
+    {
+        return 'NOT IMPLEMENTED YET';
     }
 }

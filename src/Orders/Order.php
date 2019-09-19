@@ -16,6 +16,11 @@ class Order
      */
     private $orderItems;
 
+    /**
+     * @var Collection
+     */
+    private $options;
+
 
     public function __construct()
     {
@@ -178,15 +183,34 @@ class Order
      * @param bool $val
      * @return $this
      */
-    public function setPayFromWallet(bool $val)
+    public function setPayFromWallet(bool $val): Order
     {
         $this->setOptionsData('pay_from_company_wallet', $val);
         return $this;
     }
 
-    public function setShippingRateId(string $shippingRateId)
+    /**
+     * Set Shipping Rate Id
+     *
+     * @param string $shippingRateId
+     * @return Order
+     */
+    public function setShippingRateId(string $shippingRateId): Order
     {
         $this->setOptionsData('shipping_rate_id', $shippingRateId);
+        return $this;
+    }
+
+    /**
+     * Set Shipping Method ID
+     *
+     * @param string $shippingMethodId
+     * @return $this
+     */
+    public function setShippingMethodId(string $shippingMethodId)
+    {
+        $this->setOptionsData('shipping_method_id', $shippingMethodId);
+        return $this;
     }
 
     /**
