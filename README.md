@@ -123,31 +123,57 @@ use Shippii\Shipping\ShippingMethods;
 
         // Example Response
         /* array:6 [▼
-            "headers" => array:6 [▶]
-            "request" => null
-            "success" => true
-            "http_code" => 200
-            "message" => null
-            "data" => array:1 [▼
-                0 => array:15 [▼
-                "id" => "Gogbqe"
-                "name" => "Ascendia Shipping Method"
-                "description" => "Some shipping method description"
-                "fuel_surcharge" => null
-                "for_return" => false
-                "on_pallet" => false
-                "pickup_point" => false
-                "pickup_point_id" => null
-                "max_weight" => "100.000"
-                "max_height" => "100.000"
-                "max_length" => "100.000"
-                "max_width" => "100.000"
-                "is_active" => true
-                "created_at" => "2019-09-05T09:16:40.000000Z"
-                "updated_at" => "2019-09-05T09:22:43.000000Z"
-                ]
-            ]
-        ] */
+             "headers" => array:8 [▶]
+             "request" => null
+             "success" => true
+             "http_code" => 200
+             "message" => null
+             "data" => array:4 [▼
+               0 => array:10 [▼
+                 "id" => "96vyGZ"
+                 "name" => "Flat"
+                 "description" => "Testing"
+                 "for_return" => false
+                 "max_weight" => "200.000"
+                 "max_width" => "9999.000"
+                 "max_height" => "9999.000"
+                 "max_length" => "9999.000"
+                 "on_pallet" => false
+                 "rates" => array:2 [▼
+                   0 => array:5 [▼
+                     "id" => "96vyGZ"
+                     "name" => "Asendia 0-30 KG"
+                     "for_return" => false
+                     "on_pallet" => false
+                     "shipping_fee" => "100.000"
+                   ]
+                   1 => array:5 [▶]
+                 ]
+               ]
+               1 => array:10 [▼
+                 "id" => "PGgP6q"
+                 "name" => "Flat With Service Point Bring"
+                 "description" => "Flat By Bring"
+                 "for_return" => false
+                 "max_weight" => "500.000"
+                 "max_width" => "500.000"
+                 "max_height" => "500.000"
+                 "max_length" => "500.000"
+                 "on_pallet" => false
+                 "rates" => array:1 [▼
+                   0 => array:5 [▼
+                     "id" => "PGrjGL"
+                     "name" => "Another Cheap Rate No Service Point"
+                     "for_return" => false
+                     "on_pallet" => false
+                     "shipping_fee" => "8.500"
+                   ]
+                 ]
+               ]
+               2 => array:10 [▶]
+               3 => array:10 [▶]
+             ]
+           ] */
         } catch (ShippiiValidationException $validationException) {
             print_r($validationException->getValidationErrors());
         } catch (ShippiiServerErrorException $serverErrorException) {
