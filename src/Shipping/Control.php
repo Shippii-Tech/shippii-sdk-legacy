@@ -35,9 +35,9 @@ class Control
      * @return array
      * @throws ShippiiAuthenticationException
      * @throws ShippiiAuthorizationException
-     * @throws ShippiiEndpointNotFoundException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
+     * @throws \Shippii\Exceptions\ShippiiEndpointNotFoundException
      */
     public function cancelShipment(string $yourReference): array
     {
