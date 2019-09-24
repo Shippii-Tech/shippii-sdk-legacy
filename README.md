@@ -56,7 +56,12 @@ foreach ($items as $item) {
     $orderItem->setQuantity($item['quantity']);
     $orderItem->setWeight($item['weight']);
     $orderItem->setSku($item['sku']);
-    $order->setOrderItem($orderItem);
+
+    try {
+        $order->setOrderItem($orderItem);
+    } catch (TypeError $error) {
+        print $error->getMessage();
+    }
 }
 
 // Here we do the actual order
@@ -92,6 +97,8 @@ try {
         "created_at" => "2019-08-30 16:51:29"
       ]
     ]*/
+} catch (TypeError $error) {
+    print $error->getMessage();
 } catch (ShippiiValidationException $shippiiValidationException) {
     print_r($shippiiValidationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {
