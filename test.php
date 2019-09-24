@@ -10,13 +10,14 @@ use Shippii\Orders\Order;
 use Shippii\Orders\OrderItem;
 use Shippii\Shippii;
 
-$shippii = new Shippii(
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjFiMGYzODBiZTU1MDQzODk2NTJkNzA2NmE5ZjUxNzBmNDQyZTY3MjNkMzBjODRmMjEwNjZlYmFhZGE1ZjlhMDRlYTNkNjBlOTkyYTEzZTM1In0.eyJhdWQiOiIxIiwianRpIjoiMWIwZjM4MGJlNTUwNDM4OTY1MmQ3MDY2YTlmNTE3MGY0NDJlNjcyM2QzMGM4NGYyMTA2NmViYWFkYTVmOWEwNGVhM2Q2MGU5OTJhMTNlMzUiLCJpYXQiOjE1NjY4MjI4MzksIm5iZiI6MTU2NjgyMjgzOSwiZXhwIjoxNTk4NDQ1MjM5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ApotxOjKNJv-OkrWJZ5aNmvk6Ks7nEXOIGrXezhN3gFQKPgMrBP709ov_6Gpphu4DJqaIw73AoaqOry1n4pL6QaeYD1jYF21_ZSgmLdhkN26BD7LorSBviDuQzlXMpTuy4aQW2sVccRnEnjaEBddQ4_zfaGoRGgYOYsEN0Ti4Gnd4p-uI7udSTMVzXB0Py4ZeBRPO3KEqPsAiDeSOfy1ZhY0tKr8GkY5w5BiAtrxzK-mCPDAukH_MMCyCgwenP8xrzTbeKz88Wcy3D2nk655x0Lj357rvWSMJB5HmCOgMcftxrMpUAE6Q6qj2tlNbbPw75YUjLD3-aNM7EYret8I6It5c3gbP0sqMCPR2d9YTnmkumk__InVJBFgt5kRGs8vlcIBYrWNE0DTj5LqZOhrCWUcX_YxQHLSWbqfqSUSlthzZE6df30q5upiqEGgm2ja33OTAZgSfF_Ma5ZOqnYzOpgvk2F6piJxMgINFOUpysdIoaOmfvqJHgYLStYBl8_FUeAoTH79KPEFIxNUdrBIKvSqi8vLmr0hKd5AQBtm4RhJ1qqK9J4PQX7fGpo5DdmO6k9uB-cmfef-AgfKSxA1X6ryFZiKUez23oafs4K47PjjP7Ftv4mFYzdmhkhY0HAkk07UB8DPQr-espf7RO9rZSGdjR9Fv0rUhx2kJrNu7Z4',
-    true
-);
+$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjkwMDBkZDljYThkNzdlMGQ0NTRjODBmMzIxMjhlYjY0OGFlYTQ1YzM3OGYyYjEwOTY0YTI0ODM4ZTI3YjRjNmY1YTc3NTRjMjgzNDU4ZGI5In0.eyJhdWQiOiIxIiwianRpIjoiOTAwMGRkOWNhOGQ3N2UwZDQ1NGM4MGYzMjEyOGViNjQ4YWVhNDVjMzc4ZjJiMTA5NjRhMjQ4MzhlMjdiNGM2ZjVhNzc1NGMyODM0NThkYjkiLCJpYXQiOjE1NjgxODQ1NDMsIm5iZiI6MTU2ODE4NDU0MywiZXhwIjoxNTk5ODA2OTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbImNhbi1mZXRjaC1tZXRob2RzIiwiZnVsbC1hY2Nlc3MtdG8tY29tcGFueS1vcmRlcnMiXX0.gDfBfXKUd-o57nSzCzf2urX8P6lEHfSAkkK5XUGCamZbFAFy0gtvJw3DpDqtbNikbyngNv3XSkfY6KoUWF_ylBN0u59yz3PQ3q_83-fEt-jk_tE4fuEcvmmQ_VCQe1BmGaV4iKnQRKyZECb6IyppE-it2Rp4u5Rlp73eAnqJZMOIubBTvC2vNR5KDEWkXzSxAO4nkY1MJ0ikg1EbiOMXKrupUaQdhZpqmrm2VNVnHe2ItJTeaPywNceBo7fM96if58y-rWgVq4vZqDKKX3A-hsIJcQx2KwRoYnA3wp5y69UvMJ5Fg1wWVdrqpwghEd8ZCt3xFFy4Tn5pu5FqUgoL0WsWaCiROiq4dTr13XiFaiHYyicTvh-TIVNsapw88XFhe_jvWphnH_Vjo33S27TKheIOMQbKkwewdk6qTSPvp0LwiS5ekZxY4SNu94xRV4OPtgzBjy6m0_Uf8_6dyohq_FXHnKkCxc_Ab1vtA76Q8d0q3aWypuhqGyH6Mm5pIcxuUcbU7vuStZJ59uLjv_kTQdzXbq-yD7kP3Sy8OkRZwfNAv4TLG59Nj8oiUWrHc50W-f-sQktXPxNg4ZZZv1B50GYuWXjDzBjzdUec_dBA3l18tRNg74yy_y1HEoYdrUX7-8fOQNY4xdToEOwKLMgURDMlswDFcfThA46WUPyowt4";
+
+$testMode = true;
+$baseUrl = 'http://shippii-core.test/';
+
+$shippii = new Shippii($token, $testMode, $baseUrl);
 
 $faker = Factory::create('nb_NO');
-
 
 $order = new Order();
 $order->setReceiverFirstName($faker->firstName);
@@ -27,15 +28,17 @@ $order->setReceiverMobile($faker->randomNumber(8));
 $order->setReceiverCity($faker->city);
 $order->setReceiverProvince($faker->country);
 $order->setReceiverZipCode($faker->postcode);
-$order->setReceiverCountryCode('NO');
+$order->setReceiverCountryCode('DK');
+
 $order->setPayFromWallet(true)
     ->setReference($faker->randomNumber(5))
     ->setBillingAddressSameAsShipment()
-    ->setShippingRateId("96vyGZ");
+    ->setShippingMethodId('9oN23o')
+    ->setShippingRateId("1oLOlq");
 
 dump($order);
 
-$items = [
+$items = [ // items
     [
         'name' => 'Man Shoes', // required
         'ean' => '1232131212', // optional
@@ -54,12 +57,19 @@ foreach ($items as $item) {
     $orderItem->setQuantity($item['quantity']);
     $orderItem->setWeight($item['weight']);
     $orderItem->setSku($item['sku']);
-    $order->setOrderItem($orderItem);
+    
+    try {
+        $order->setOrderItem($orderItem);
+    } catch (TypeError $error) {
+        print $error->getMessage();
+    }
 }
 
 try {
     $response = $shippii->setOrder($order)->sendOrder();
 
+} catch (TypeError $error) {
+    print $error->getMessage();
 } catch (ShippiiValidationException $shippiiValidationException) {
     print_r($shippiiValidationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {

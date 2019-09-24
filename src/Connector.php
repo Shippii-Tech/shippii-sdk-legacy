@@ -269,7 +269,7 @@ class Connector
         } catch (ClientException $clientException) {
             return $this->parseException($clientException);
         } catch (GuzzleException $guzzleException) {
-            return  $this->parseException($guzzleException);
+            return $this->parseException($guzzleException);
         }
     }
 }
