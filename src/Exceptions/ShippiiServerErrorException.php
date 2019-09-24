@@ -25,8 +25,6 @@ class ShippiiServerErrorException extends Exception
 
     public function getEventId()
     {
-        return $this->getEventId();
+        return $this->eventId;
     }
-
-
 }
