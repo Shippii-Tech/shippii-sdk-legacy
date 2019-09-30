@@ -8,7 +8,7 @@ use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
 use RuntimeException;
 use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
-use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
@@ -87,7 +87,7 @@ class LivePrice
             if (!isset($item['weight_measurement'])) {
                 $item['weight_measurement'] = 'kg';
             }
-            $this->setCartItem($item['quantity'], $item['quantity'], $item['weight_measurement']);
+            $this->setCartItem($item['quantity'], $item['weight'], $item['weight_measurement']);
         }
 
         return $this;
@@ -104,6 +104,7 @@ class LivePrice
     public function setCartItem(float $quantity, float $weight, string $weightMeasurement = 'kg'): LivePrice
     {
         try {
+            $weight = ($weight * $quantity);
             $mass = new Mass($weight, strtolower($weightMeasurement));
         } catch (NonNumericValue $e) {
             throw new RuntimeException("Cart item weight must be float / integer");
