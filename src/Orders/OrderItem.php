@@ -105,7 +105,7 @@ class OrderItem
      * @throws NonNumericValue
      * @throws NonStringUnitName
      */
-    public function setWeight(float $weight, $measurement = 'KG')
+    public function setWeight(float $weight, $measurement = 'gram')
     {
         $weight = new Mass($weight, strtolower($measurement));
         $this->setOrderItem('weight', $weight->toUnit('kg'));
