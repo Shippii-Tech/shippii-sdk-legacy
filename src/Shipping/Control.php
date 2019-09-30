@@ -4,7 +4,7 @@ namespace Shippii\Shipping;
 
 use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
-use Shippii\Exceptions\Auth\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\ShippiiEndpointNotFoundException;
 use Shippii\Exceptions\ShippiiServerErrorException;
 use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
@@ -37,7 +37,7 @@ class Control
      * @throws ShippiiAuthorizationException
      * @throws ShippiiServerErrorException
      * @throws ShippiiValidationException
-     * @throws \Shippii\Exceptions\ShippiiEndpointNotFoundException
+     * @throws ShippiiEndpointNotFoundException
      */
     public function cancelShipment(string $yourReference): array
     {

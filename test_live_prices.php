@@ -14,11 +14,12 @@ $livePrice = new LivePrice($shippii);
 
 $cartItems = [
     [
-        'weight' => 5.0, // WEIGHT PER SINGLE ITEM !!!
-        'quantity' => 3
+        'weight' => 500.0, // WEIGHT PER SINGLE ITEM !!!
+        'quantity' => 3,
+        'weight_measurement' => 'grams'
     ],
     [
-        'weight' => 1.0,
+        'weight' => 1000.0,
         // WEIGHT PER SINGLE ITEM !!!
         'quantity' => 10,
         // You can set your measurement to be converted to kilograms. So if it's not kilograms put the measurement unit so you will be able to get the correct price
@@ -29,7 +30,6 @@ $cartItems = [
 $livePrice->setReceiverCountryCode('NO')
     ->setReceiverZipCode('1063')
     ->setCartItemsFromArray($cartItems);
-
 try {
     $response = $livePrice->getLivePrice();
 } catch (\Shippii\Exceptions\Auth\ShippiiAuthenticationException $e) {
