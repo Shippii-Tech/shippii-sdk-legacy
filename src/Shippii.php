@@ -95,15 +95,14 @@ class Shippii
      * @return array
      * @throws Exceptions\Auth\ShippiiAuthenticationException
      * @throws Exceptions\Auth\ShippiiAuthorizationException
-     * @throws Exceptions\Auth\ShippiiEndpointNotFoundException
+     * @throws Exceptions\ShippiiEndpointNotFoundException
      * @throws Exceptions\ShippiiServerErrorException
      * @throws Exceptions\ShippiiValidationException
      */
     public function sendOrder(): array
     {
         $orderData = $this->prepareOrder();
-        $connection = new Connector($this->token);
-        $response = $connection->request('post', 'order', 'v1', $orderData);
+        $response = $this->connector->request('post', 'order', 'v1', $orderData);
         return $response->toArray();
     }
 

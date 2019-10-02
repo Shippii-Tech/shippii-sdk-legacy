@@ -2,22 +2,22 @@
 
 namespace Shippii\Orders;
 
-use Tightenco\Collect\Support\Collection;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 class Order
 {
     /**
-     * @var Collection
+     * @var TightencoCollection
      */
     private $receiverData;
 
     /**
-     * @var Collection $orderItems
+     * @var TightencoCollection $orderItems
      */
     private $orderItems;
 
     /**
-     * @var Collection
+     * @var TightencoCollection
      */
     private $options;
 
@@ -25,6 +25,7 @@ class Order
     public function __construct()
     {
         $this->options = collect();
+        $this->options->put('meta_data', new TightencoCollection());
         $this->receiverData = collect();
         $this->orderItems = collect();
     }
@@ -67,6 +68,51 @@ class Order
         $this->setReceiverData('receiver_first_name', $name);
         return $this;
 
+    }
+
+    /**
+     *
+     * Order Meta Data Setter
+     *
+     * Using this method you can attach additional data to the order
+     *
+     * @param array $data
+     * @return Order
+     */
+    protected function setMetaData(array $data): Order
+    {
+        /** @var TightencoCollection $metaData */
+        $metaData = $this->options->get('meta_data');
+        foreach ($data as $key => $datum) {
+            $metaData->put($key, $datum);
+        }
+        return $this;
+    }
+
+    /**
+     * Set Shipping Rate Alias Name
+     *
+     * @param string $name
+     * @return Order
+     */
+    public function setShippingRateAliasName(string $name): Order
+    {
+        $struct['shipping_rate_alias_name'] = $name;
+        $this->setMetaData($struct);
+        return $this;
+    }
+
+    /**
+     * Set Shipping Rate Alias Name
+     *
+     * @param float $price
+     * @return Order
+     */
+    public function setShippingRateAliasPrice(float $price): Order
+    {
+        $struct['shipping_rate_alias_price'] = $price;
+        $this->setMetaData($struct);
+        return $this;
     }
 
     /**
@@ -237,15 +283,15 @@ class Order
         return $this;
     }
 
-    public function getOrderOptions(): Collection
+    public function getOrderOptions(): TightencoCollection
     {
         return $this->options;
     }
 
     /**
-     * @return Collection
+     * @return TightencoCollection
      */
-    public function getOrderItems(): Collection
+    public function getOrderItems(): TightencoCollection
     {
         return $this->orderItems;
     }
@@ -253,9 +299,9 @@ class Order
     /**
      * Get Receiver Data
      *
-     * @return Collection
+     * @return TightencoCollection
      */
-    public function getReceiver(): Collection
+    public function getReceiver(): TightencoCollection
     {
         return $this->receiverData;
     }
