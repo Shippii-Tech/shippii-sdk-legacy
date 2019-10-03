@@ -44,7 +44,9 @@ $items = [ // items
         'price' => 50.00, // float. required This is the price for SINGLE item
         'quantity' => 1, // int/float required This is the quantity shipped.
         'weight' => 3.21, // float required The weight of the SINGLE item
-        'sku' => 'ITEM123213' // You can put your Item ID here for instance.
+        'sku' => 'ITEM123213',  // You can put your Item ID here for instance.
+        'country_of_origin' => 'BG', // Needed For The Customs
+        'tariff_code' => 'TARIFF-123ASD-1Q' // Needed For The customs
     ]
 ];
 
@@ -56,8 +58,8 @@ foreach ($items as $item) {
     $orderItem->setQuantity($item['quantity']);
     $orderItem->setWeight($item['weight']);
     $orderItem->setSku($item['sku']);
-    $orderItem->setCountryOfOrigin("BG");
-    $orderItem->setTariffCode('TARIFF-124214-AS');
+    $orderItem->setCountryOfOrigin($item['country_of_origin']);
+    $orderItem->setTariffCode($item['tariff_code']);
     
     try {
         $order->setOrderItem($orderItem);
