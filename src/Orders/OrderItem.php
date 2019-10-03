@@ -97,6 +97,33 @@ class OrderItem
     }
 
     /**
+     * Set Tariff Code
+     *
+     * This is used in document for the customs
+     *
+     * @param string $tariffCode
+     * @return OrderItem
+     */
+    public function setTariffCode(string $tariffCode): OrderItem
+    {
+        $this->setOrderItem('tariff_code', $tariffCode);
+        return $this;
+    }
+
+    /**
+     * Set Country Of Origin
+     *
+     * This is used in the document for the customs
+     * @param string $countryOfOrigin
+     * @return OrderItem
+     */
+    public function setCountryOfOrigin(string $countryOfOrigin): OrderItem
+    {
+        $this->setOrderItem('country_of_origin', $countryOfOrigin);
+        return $this;
+    }
+
+    /**
      * Set Order Item Weight
      *
      * @param float $weight
