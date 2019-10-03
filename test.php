@@ -56,6 +56,8 @@ foreach ($items as $item) {
     $orderItem->setQuantity($item['quantity']);
     $orderItem->setWeight($item['weight']);
     $orderItem->setSku($item['sku']);
+    $orderItem->setCountryOfOrigin("BG");
+    $orderItem->setTariffCode('TARIFF-124214-AS');
     
     try {
         $order->setOrderItem($orderItem);
