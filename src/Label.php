@@ -39,10 +39,11 @@ class Label
         string $printerId = null,
         string $labelFormat = 'PDF'
     ): array {
-        $endPoint = 'label/get/' . $yourReference;
+        $endPoint = 'label/get/single';
 
         $requestData = new TightencoCollection();
         $requestData->put('query', [
+            'reference' => (string) $yourReference,
             'print' => (int)$print,
             'printer_id' => $printerId,
             'label_format' => $labelFormat
