@@ -105,7 +105,6 @@ class Shippii
         $result += $this->order->getOrderOptions()->toArray();
         $result['items'] = $this->order->getOrderItems()->toArray();
         return new TightencoCollection(['json' => $result]);
-        return collect(['json' => $result]);
     }
 
     /**
@@ -143,6 +142,7 @@ class Shippii
     /**
      * Send the order
      *
+     * @param $ordersForProcess
      * @return array
      * @throws Exceptions\Auth\ShippiiAuthenticationException
      * @throws Exceptions\Auth\ShippiiAuthorizationException
