@@ -21,13 +21,12 @@ class Order
      */
     private $options;
 
-
     public function __construct()
     {
-        $this->options = collect();
         $this->options->put('meta_data', new TightencoCollection());
-        $this->receiverData = collect();
-        $this->orderItems = collect();
+        $this->options = new TightencoCollection();
+        $this->receiverData = new TightencoCollection();
+        $this->orderItems = new TightencoCollection();
     }
 
     /**
@@ -42,7 +41,6 @@ class Order
         $this->receiverData->put($key, $value);
         return $this;
     }
-
 
     /**
      * Set Options
@@ -229,34 +227,20 @@ class Order
      * @param bool $val
      * @return $this
      */
-    public function setPayFromWallet(bool $val): Order
+    public function setPayFromWallet(bool $val)
     {
         $this->setOptionsData('pay_from_company_wallet', $val);
         return $this;
     }
 
-    /**
-     * Set Shipping Rate Id
-     *
-     * @param string $shippingRateId
-     * @return Order
-     */
-    public function setShippingRateId(string $shippingRateId): Order
+    public function setShippingRateId(string $shippingRateId)
     {
         $this->setOptionsData('shipping_rate_id', $shippingRateId);
-        return $this;
     }
 
-    /**
-     * Set Shipping Method ID
-     *
-     * @param string $shippingMethodId
-     * @return $this
-     */
     public function setShippingMethodId(string $shippingMethodId)
     {
         $this->setOptionsData('shipping_method_id', $shippingMethodId);
-        return $this;
     }
 
     /**
