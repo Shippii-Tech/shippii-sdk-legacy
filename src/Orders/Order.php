@@ -23,8 +23,8 @@ class Order
 
     public function __construct()
     {
-        $this->options->put('meta_data', new TightencoCollection());
         $this->options = new TightencoCollection();
+        $this->options->put('meta_data', new TightencoCollection());
         $this->receiverData = new TightencoCollection();
         $this->orderItems = new TightencoCollection();
     }
