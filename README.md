@@ -12,11 +12,13 @@ $token = 'YOUR APP TOKEN';
 $testMode = true;
 $urls = Shippii::APP_URLS;
 //Example Response App urls
-    array:3 [▼
+
+    /*array:3 [▼
       "live_env" => "https://api.shippii.com/"
       "dev_env" => "https://test-api.shippii.com/"
       "stage_env" => "https://stage-api.shippii.com/"
     ]
+    */
 $url = $urls['dev_env'];
 
 $shippii = new Shippii($token, $testMode, $url);
