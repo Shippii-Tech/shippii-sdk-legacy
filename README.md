@@ -208,15 +208,18 @@ try {
     $shippii->setOrders($ordersForProcess);
     $shippii->sendBulkOrders($ordersForProcess);
 } catch (ShippiiValidationException $validationException) {
-     $validationException->getValidationErrors();
+    print_r($validationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {
-  return $shippiiServerErrorException;
+  print_r([
+          'message' => $shippiiServerErrorException->getMessage(),
+          'shippii_event_id' => $shippiiServerErrorException->getEventId()
+  ]);
 } catch (ShippiiAuthorizationException $authorizationException) {
-   return $authorizationException;
+    print "You're app does not have the needed token scope";
 } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
-  return $shippiiAuthenticationException;
-} catch (ShippiiEndpointNotFoundException $e) {
-    return $e->getMessage();
+  print "You are not authenticated. Please check your token";
+} catch (ShippiiEndpointNotFoundException $shippiiEndpointNotfound) {
+    print $e->getMessage();
 }
 ```
 Get All Shipping Methods
