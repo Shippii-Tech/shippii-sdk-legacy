@@ -123,7 +123,7 @@ try {
 }
 ```
 
-Create bulk orders
+To Make Bulk Orders
 ```php
 use Shippii\Orders\Order;
 use Shippii\Orders\OrderItem;
