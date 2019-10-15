@@ -123,6 +123,105 @@ try {
 }
 ```
 
+```
+
+Create bulk orders
+```php
+use Shippii\Orders\Order;
+use Shippii\Orders\OrderItem;
+use Shippii\Shippii;
+
+$token = 'YOUR APP TOKEN';
+$testMode = true;
+$urls = Shippii::APP_URLS;
+//Example Response App urls
+
+    /*array:3 [▼
+      "live_env" => "https://api.shippii.com/"
+      "dev_env" => "https://test-api.shippii.com/"
+      "stage_env" => "https://stage-api.shippii.com/"
+    ]
+    */
+$url = $urls['dev_env'];
+
+$shippii = new Shippii($token, $testMode, $url);
+$orders = [
+    0 => [
+        'receiver_first_name' => "John",
+        'receiver_last_name' => 'Doe',
+        'receiver_email' => 'test-email@gmail.com'
+        'receiver_city' => 'Oslo',
+        'receiver_mobile' => +475555555,
+        'receiver_address' => "Lindebergveien 51 B",
+        'receiver_province' => 'Oslo',
+        'receiver_country_code' => 'NO',
+        'receiver_zip_code' => '1550',
+        'items' = [
+            [
+                'name' => 'Man Shoes', // required
+                'ean' => '1232131212', // optional
+                'price' => 50.00, // float. required This is the price for SINGLE item
+                'quantity' => 1, // int/float required This is the quantity shipped.
+                'weight' => 3.21, // float required The weight of the SINGLE item
+                'sku' => 'My Shop Item Id' // You can put your Item ID here for instance.
+            ]
+        ];
+    ]
+];
+
+$orderToProcess = [];
+foreach ($orders as $key => $order) {
+    $shippiOrder = new Order();
+    $payFromWallet = true; // If you set this to false, Shippii will return redirect url where you should redirect your customer for the payment of the shipment. Otherwise Shippii will deduct the amount of the shipment from your company wallet
+    $shippiOrder->setPayFromWallet($payFromWallet);
+    //$orderPrepare->setReceiverFirstName($shippingAddress->first_name);
+    $shippiOrder->setReceiverFirstName($order['receiver_first_name']);
+    $shippiOrder->setReceiverLastName($order['receiver_last_name']);
+    $shippiOrder->setReceiverAddress($order['receiver_address']);
+    $shippiOrder->setReceiverEmail($order['receiver_email']);
+    $shippiOrder->setReceiverCity($order['receiver_city']);
+    $shippiOrder->setReceiverMobile($order['receiver_mobile']);
+    $shippiOrder->setReceiverProvince($order['receiver_province']);
+    //$orderPrepare->setReceiverZipCode($order['receiver_zip_code']);
+    $shippiOrder->setReceiverZipCode("1550");
+    //$orderPrepare->setReceiverCountryCode($order['receiver_country_code']);
+    $shippiOrder->setReceiverCountryCode("NO");
+    $shippiOrder->setShippingMethodId("2");
+    $shippiOrder->setBillingAddressSameAsShipment(); 
+    //HEADS UP !!!
+    $myUniqueReference = md5($myOrder['id'); // You must provide unique reference to shippii. It does not matter how you are gonna create it. It's totally up to you. It must be UNIQUE!!! Improvise :) P.S There is validation on our side also
+    $shippiOrder->setReference($myUniqueReference);
+
+    // set items 
+    foreach ($order['items'] as $item) {
+        $orderItem = new OrderItem();
+        $orderItem->setName($item['name']);
+        $orderItem->setEan($item['ean']);
+        $orderItem->setPrice($item['price']);
+        $orderItem->setQuantity($item['quantity']);
+        $orderItem->setWeight($item['weight']);
+        $orderItem->setSku($item['sku']);
+        $shippiOrder->setOrderItem($orderItem);
+    }
+    $orderToProcess[$key] = $shippiOrder;
+}
+
+try {
+    $shippii->setOrders($ordersForProcess);
+    $shippii->sendBulkOrders($ordersForProcess);
+} catch (ShippiiValidationException $validationException) {
+     $validationException->getValidationErrors();
+} catch (ShippiiServerErrorException $shippiiServerErrorException) {
+  return $shippiiServerErrorException;
+} catch (ShippiiAuthorizationException $authorizationException) {
+   return $authorizationException;
+} catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
+  return $shippiiAuthenticationException;
+} catch (ShippiiEndpointNotFoundException $e) {
+    return $e->getMessage();
+}
+
+```
 Get All Shipping Methods
 ```php
 use Shippii\Shippii;
