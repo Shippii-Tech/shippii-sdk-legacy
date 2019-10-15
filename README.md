@@ -123,7 +123,6 @@ try {
 }
 ```
 
-```
 Create bulk orders
 ```php
 use Shippii\Orders\Order;
@@ -219,7 +218,6 @@ try {
 } catch (ShippiiEndpointNotFoundException $e) {
     return $e->getMessage();
 }
-
 ```
 Get All Shipping Methods
 ```php
