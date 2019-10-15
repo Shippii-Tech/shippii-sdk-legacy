@@ -207,6 +207,41 @@ foreach ($orders as $key => $order) {
 try {
     $shippii->setOrders($ordersForProcess);
     $shippii->sendBulkOrders($ordersForProcess);
+    //Example Response. Keep in mind the order references will be yours this is just for testing.
+
+    /*array:6 [▼
+      "headers" => array:6 [▼
+        "Server" => array:1 [▶]
+        "Content-Type" => array:1 [▶]
+        "Transfer-Encoding" => array:1 [▶]
+        "Connection" => array:1 [▶]
+        "Cache-Control" => array:1 [▶]
+        "Date" => array:1 [▶]
+      ]
+      "request" => null
+      "success" => true
+      "http_code" => 201
+      "message" => "Order received successfully."
+      "data" => array:1 [▼
+        "orders" => array:1 [▼
+          0 => array:8 [▼
+            "id" => "6lXO16"
+            "shippii_reference" => "SHIPPII-fcf1eba0-226d-4586-b253-5ee8b485ff8b"
+            "reference" => "963972431919"
+            "status" => "Queued"
+            "urls" => array:2 [▼
+              "order_url" => "https://frontend.shipii.com/order/6lXO16"
+              "debug_order_url" => "http://shippii-api-new.test/order/6lXO16?signature=162d1f100add9eb3e5990d86b3c31c87e59f938b0c9a857547b7b6545312b8f3"
+            ]
+            "labels_scheduled_for_creation" => true
+            "labels_scheduled_creation_time" => "2019-10-15 15:18:39"
+            "created_at" => "2019-10-15 15:18:29"
+          ]
+        ]
+      ]
+    ]*/
+    
+    
 } catch (ShippiiValidationException $validationException) {
     print_r($validationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {
