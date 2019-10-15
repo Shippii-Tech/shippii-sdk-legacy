@@ -124,7 +124,6 @@ try {
 ```
 
 ```
-
 Create bulk orders
 ```php
 use Shippii\Orders\Order;
