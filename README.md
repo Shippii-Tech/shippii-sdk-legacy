@@ -205,8 +205,8 @@ foreach ($orders as $key => $order) {
 }
 
 try {
-    $shippii->setOrders($ordersForProcess);
-    $shippii->sendBulkOrders($ordersForProcess);
+    $shippii->setOrders($orderToProcess);
+    $shippii->sendBulkOrders($orderToProcess);
     //Example Response. Keep in mind the order references will be yours this is just for testing.
 
     /*array:6 [▼
