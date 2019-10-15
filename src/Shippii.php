@@ -43,6 +43,12 @@ class Shippii
      */
     public $connector;
 
+    const APP_URLS = [
+        'live_env' => 'https://api.shippii.com/',
+        'dev_env'  => 'https://test-api.shippii.com/',
+        'stage_env' => 'https://stage-api.shippii.com/',
+    ];
+
     public function __construct(string $token, bool $testMode, string $baseUrl = null)
     {
         $this->connector = new Connector($token, $testMode, $baseUrl);
