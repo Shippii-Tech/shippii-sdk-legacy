@@ -240,8 +240,6 @@ try {
         ]
       ]
     ]*/
-    
-    
 } catch (ShippiiValidationException $validationException) {
     print_r($validationException->getValidationErrors());
 } catch (ShippiiServerErrorException $shippiiServerErrorException) {
@@ -257,6 +255,97 @@ try {
     print $e->getMessage();
 }
 ```
+Track And Trace
+```php
+use Shippii\Shippii;
+use Shippii\Shipping\ShippingMethods;
+use Shippii\Shipping\TrackAndTrace;
+    $token = 'YOUR APP TOKEN';
+    $testMode = true;
+    $urls = Shippii::APP_URLS;
+    $url = $urls['dev_env'];
+    $shippii = new Shippii($token, $testMode, $url);
+    $trackAndTrace = new TrackAndTrace($shippii);
+    try {
+        $result = $trackAndTrace->trackAndTrace("2212qq33413119");
+        //Example Response. Track and trace
+
+        /*array (
+          'success' => true,
+          'message' => 'Track and trace data.',
+          'http_code' => 200,
+          'data' => 
+          array (
+            'consignments' => 
+            array (
+              0 => 
+              array (
+                'packages' => 
+                array (
+                  0 => 
+                  array (
+                    'trackingId' => '73330062002308715',
+                    'events' => 
+                    array (
+                      0 => 
+                      array (
+                        'description' => 'Shipment ready to depart hub',
+                        'status' => 'Departed Asendia facility',
+                        'timestamp' => '07/10/2019 09:58:59',
+                        'locationName' => 'NORWAY',
+                      ),
+                      1 => 
+                      array (
+                        'description' => 'Shipment created',
+                        'status' => 'Label printed',
+                        'timestamp' => '07/10/2019 09:36:55',
+                        'locationName' => NULL,
+                      ),
+                    ),
+                  ),
+                  1 => 
+                  array (
+                    'trackingId' => '73330062002308715',
+                    'events' => 
+                    array (
+                      0 => 
+                      array (
+                        'description' => 'Shipment ready to depart hub',
+                        'status' => 'Departed Asendia facility',
+                        'timestamp' => '07/10/2019 09:58:59',
+                        'locationName' => 'NORWAY',
+                      ),
+                      1 => 
+                      array (
+                        'description' => 'Shipment created',
+                        'status' => 'Label printed',
+                        'timestamp' => '07/10/2019 09:36:55',
+                        'locationName' => NULL,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )*/
+    } catch (ShippiiValidationException $validationException) {
+        print_r($validationException->getValidationErrors());
+    } catch (ShippiiServerErrorException $shippiiServerErrorException) {
+        print_r([
+            'message' => $shippiiServerErrorException->getMessage(),
+            'shippii_event_id' => $shippiiServerErrorException->getEventId()
+        ]);
+    } catch (ShippiiAuthorizationException $authorizationException) {
+        print "You're app does not have the needed token scope";
+    } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
+        print "You are not authenticated. Please check your token";
+    } catch (ShippiiEndpointNotFoundException $shippiiEndpointNotfound) {
+        print $shippiiEndpointNotfound->getMessage();
+    }
+
+```
+
 Get All Shipping Methods
 ```php
 use Shippii\Shippii;
