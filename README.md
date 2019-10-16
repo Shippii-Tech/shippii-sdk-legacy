@@ -10,8 +10,18 @@ use Shippii\Shippii;
 
 $token = 'YOUR APP TOKEN';
 $testMode = true;
+$urls = Shippii::APP_URLS;
+//Example Response App urls
 
-$shippii = new Shippii($token, $testMode);
+    /*array:3 [▼
+      "live_env" => "https://api.shippii.com/"
+      "dev_env" => "https://test-api.shippii.com/"
+      "stage_env" => "https://stage-api.shippii.com/"
+    ]
+    */
+$url = $urls['dev_env'];
+
+$shippii = new Shippii($token, $testMode, $url);
 
 $order = new Order();
 
@@ -111,6 +121,229 @@ try {
 } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
     print "You are not authenticated. Please check your token";
 }
+```
+
+To Make Bulk Orders
+```php
+use Shippii\Orders\Order;
+use Shippii\Orders\OrderItem;
+use Shippii\Shippii;
+
+$token = 'YOUR APP TOKEN';
+$testMode = true;
+$urls = Shippii::APP_URLS;
+//Example Response App urls
+
+    /*array:3 [▼
+      "live_env" => "https://api.shippii.com/"
+      "dev_env" => "https://test-api.shippii.com/"
+      "stage_env" => "https://stage-api.shippii.com/"
+    ]
+    */
+$url = $urls['dev_env'];
+
+$shippii = new Shippii($token, $testMode, $url);
+$orders = [
+    0 => [
+        'receiver_first_name' => "John",
+        'receiver_last_name' => 'Doe',
+        'receiver_email' => 'test-email@gmail.com'
+        'receiver_city' => 'Oslo',
+        'receiver_mobile' => +475555555,
+        'receiver_address' => "Lindebergveien 51 B",
+        'receiver_province' => 'Oslo',
+        'receiver_country_code' => 'NO',
+        'receiver_zip_code' => '1550',
+        'items' = [
+            [
+                'name' => 'Man Shoes', // required
+                'ean' => '1232131212', // optional
+                'price' => 50.00, // float. required This is the price for SINGLE item
+                'quantity' => 1, // int/float required This is the quantity shipped.
+                'weight' => 3.21, // float required The weight of the SINGLE item
+                'sku' => 'My Shop Item Id' // You can put your Item ID here for instance.
+            ]
+        ];
+    ]
+];
+
+$orderToProcess = [];
+foreach ($orders as $key => $order) {
+    $shippiOrder = new Order();
+    $payFromWallet = true; // If you set this to false, Shippii will return redirect url where you should redirect your customer for the payment of the shipment. Otherwise Shippii will deduct the amount of the shipment from your company wallet
+    $shippiOrder->setPayFromWallet($payFromWallet);
+    //$orderPrepare->setReceiverFirstName($shippingAddress->first_name);
+    $shippiOrder->setReceiverFirstName($order['receiver_first_name']);
+    $shippiOrder->setReceiverLastName($order['receiver_last_name']);
+    $shippiOrder->setReceiverAddress($order['receiver_address']);
+    $shippiOrder->setReceiverEmail($order['receiver_email']);
+    $shippiOrder->setReceiverCity($order['receiver_city']);
+    $shippiOrder->setReceiverMobile($order['receiver_mobile']);
+    $shippiOrder->setReceiverProvince($order['receiver_province']);
+    //$orderPrepare->setReceiverZipCode($order['receiver_zip_code']);
+    $shippiOrder->setReceiverZipCode("1550");
+    //$orderPrepare->setReceiverCountryCode($order['receiver_country_code']);
+    $shippiOrder->setReceiverCountryCode("NO");
+    $shippiOrder->setShippingMethodId("2");
+    $shippiOrder->setBillingAddressSameAsShipment(); 
+    //HEADS UP !!!
+    $myUniqueReference = md5($myOrder['id'); // You must provide unique reference to shippii. It does not matter how you are gonna create it. It's totally up to you. It must be UNIQUE!!! Improvise :) P.S There is validation on our side also
+    $shippiOrder->setReference($myUniqueReference);
+
+    // set items 
+    foreach ($order['items'] as $item) {
+        $orderItem = new OrderItem();
+        $orderItem->setName($item['name']);
+        $orderItem->setEan($item['ean']);
+        $orderItem->setPrice($item['price']);
+        $orderItem->setQuantity($item['quantity']);
+        $orderItem->setWeight($item['weight']);
+        $orderItem->setSku($item['sku']);
+        $shippiOrder->setOrderItem($orderItem);
+    }
+    $orderToProcess[$key] = $shippiOrder;
+}
+
+try {
+    $shippii->setOrders($orderToProcess);
+    $shippii->sendBulkOrders($orderToProcess);
+    //Example Response. Keep in mind the order references will be yours this is just for testing.
+
+    /*array:6 [▼
+      "headers" => array:6 [▼
+        "Server" => array:1 [▶]
+        "Content-Type" => array:1 [▶]
+        "Transfer-Encoding" => array:1 [▶]
+        "Connection" => array:1 [▶]
+        "Cache-Control" => array:1 [▶]
+        "Date" => array:1 [▶]
+      ]
+      "request" => null
+      "success" => true
+      "http_code" => 201
+      "message" => "Order received successfully."
+      "data" => array:1 [▼
+        "orders" => array:1 [▼
+          0 => array:8 [▼
+            "id" => "6lXO16"
+            "shippii_reference" => "SHIPPII-fcf1eba0-226d-4586-b253-5ee8b485ff8b"
+            "reference" => "963972431919"
+            "status" => "Queued"
+            "urls" => array:2 [▼
+              "order_url" => "https://frontend.shipii.com/order/6lXO16"
+              "debug_order_url" => "http://shippii-api-new.test/order/6lXO16?signature=162d1f100add9eb3e5990d86b3c31c87e59f938b0c9a857547b7b6545312b8f3"
+            ]
+            "labels_scheduled_for_creation" => true
+            "labels_scheduled_creation_time" => "2019-10-15 15:18:39"
+            "created_at" => "2019-10-15 15:18:29"
+          ]
+        ]
+      ]
+    ]*/
+} catch (ShippiiValidationException $validationException) {
+    print_r($validationException->getValidationErrors());
+} catch (ShippiiServerErrorException $shippiiServerErrorException) {
+  print_r([
+          'message' => $shippiiServerErrorException->getMessage(),
+          'shippii_event_id' => $shippiiServerErrorException->getEventId()
+  ]);
+} catch (ShippiiAuthorizationException $authorizationException) {
+    print "You're app does not have the needed token scope";
+} catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
+  print "You are not authenticated. Please check your token";
+} catch (ShippiiEndpointNotFoundException $shippiiEndpointNotfound) {
+    print $e->getMessage();
+}
+```
+Track And Trace
+```php
+use Shippii\Shippii;
+use Shippii\Shipping\ShippingMethods;
+use Shippii\Shipping\TrackAndTrace;
+    $token = 'YOUR APP TOKEN';
+    $testMode = true;
+    $urls = Shippii::APP_URLS;
+    $url = $urls['dev_env'];
+    $shippii = new Shippii($token, $testMode, $url);
+    $trackAndTrace = new TrackAndTrace($shippii);
+    try {
+        $result = $trackAndTrace->trackAndTrace("73330062002308715");
+        //Example Response. Track and trace
+
+        /*array (
+          'success' => true,
+          'message' => 'Track and trace data.',
+          'http_code' => 200,
+          'data' => 
+          array (
+            'consignments' => 
+            array (
+              0 => 
+              array (
+                'packages' => 
+                array (
+                  0 => 
+                  array (
+                    'trackingId' => '73330062002308715',
+                    'events' => 
+                    array (
+                      0 => 
+                      array (
+                        'description' => 'Shipment ready to depart hub',
+                        'status' => 'Departed Asendia facility',
+                        'timestamp' => '07/10/2019 09:58:59',
+                        'locationName' => 'NORWAY',
+                      ),
+                      1 => 
+                      array (
+                        'description' => 'Shipment created',
+                        'status' => 'Label printed',
+                        'timestamp' => '07/10/2019 09:36:55',
+                        'locationName' => NULL,
+                      ),
+                    ),
+                  ),
+                  1 => 
+                  array (
+                    'trackingId' => '73330062002308715',
+                    'events' => 
+                    array (
+                      0 => 
+                      array (
+                        'description' => 'Shipment ready to depart hub',
+                        'status' => 'Departed Asendia facility',
+                        'timestamp' => '07/10/2019 09:58:59',
+                        'locationName' => 'NORWAY',
+                      ),
+                      1 => 
+                      array (
+                        'description' => 'Shipment created',
+                        'status' => 'Label printed',
+                        'timestamp' => '07/10/2019 09:36:55',
+                        'locationName' => NULL,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )*/
+    } catch (ShippiiValidationException $validationException) {
+        print_r($validationException->getValidationErrors());
+    } catch (ShippiiServerErrorException $shippiiServerErrorException) {
+        print_r([
+            'message' => $shippiiServerErrorException->getMessage(),
+            'shippii_event_id' => $shippiiServerErrorException->getEventId()
+        ]);
+    } catch (ShippiiAuthorizationException $authorizationException) {
+        print "You're app does not have the needed token scope";
+    } catch (ShippiiAuthenticationException $shippiiAuthenticationException) {
+        print "You are not authenticated. Please check your token";
+    } catch (ShippiiEndpointNotFoundException $shippiiEndpointNotfound) {
+        print $shippiiEndpointNotfound->getMessage();
+    }
+
 ```
 
 Get All Shipping Methods
