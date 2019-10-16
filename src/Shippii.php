@@ -120,9 +120,9 @@ class Shippii
     protected function prepareBulkOrders(): TightencoCollection
     {
         foreach ($this->orders as $k => $order) {
-            $result['orders'][$k] = $this->order->getReceiver()->toArray();
-            $result['orders'][$k] += $this->order->getOrderOptions()->toArray();
-            $result['orders'][$k]['items'] = $this->order->getOrderItems()->toArray();
+            $result['orders'][$k] = $order->getReceiver()->toArray();
+            $result['orders'][$k] += $order->getOrderOptions()->toArray();
+            $result['orders'][$k]['items'] = $order->getOrderItems()->toArray();
         }
 
         return new TightencoCollection(['json' => $result]);
