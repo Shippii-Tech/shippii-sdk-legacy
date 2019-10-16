@@ -267,7 +267,7 @@ use Shippii\Shipping\TrackAndTrace;
     $shippii = new Shippii($token, $testMode, $url);
     $trackAndTrace = new TrackAndTrace($shippii);
     try {
-        $result = $trackAndTrace->trackAndTrace("2212qq33413119");
+        $result = $trackAndTrace->trackAndTrace("73330062002308715");
         //Example Response. Track and trace
 
         /*array (
