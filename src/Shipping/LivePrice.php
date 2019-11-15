@@ -104,7 +104,7 @@ class LivePrice
     public function setCartItem(float $quantity, float $weight, string $weightMeasurement = 'kg'): LivePrice
     {
         try {
-            $weight = ($weight * $quantity);
+            //$weight = ($weight * $quantity);
             $mass = new Mass($weight, strtolower($weightMeasurement));
         } catch (NonNumericValue $e) {
             throw new RuntimeException("Cart item weight must be float / integer");
