@@ -186,6 +186,30 @@ class Order
     }
 
     /**
+     * Set Receiver Destrict
+     *
+     * @param string $district
+     * @return Order
+     */
+    public function setReceiverDistrict(string $district): Order
+    {
+        $this->setReceiverData('receiver_district', $district);
+        return $this;
+    }
+
+    /**
+     * Set Receiver Identification
+     *
+     * @param string $receiverIdentificationNumber
+     * @return Order
+     */
+    public function setReceiverIdentificationNumber(string $receiverIdentificationNumber): Order
+    {
+        $this->setReceiverData('receiver_personal_identification_number', $receiverIdentificationNumber);
+        return $this;
+    }
+
+    /**
      * Set Receiver Zip Code
      *
      * @param string $zipCode

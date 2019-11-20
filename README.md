@@ -33,6 +33,10 @@ $order->setReceiverEmail("john_doe@vconnect.dk");
 $order->setReceiverMobile("00359877111111");
 $order->setReceiverCity("Sofia");
 $order->setReceiverProvince("Sofia");
+ // required when receiver country - China
+$order->setReceiverDistrict($order['receiver_district']);
+// required when receiver country - China
+$order->setReceiverIdentificationNumber($order['receiver_personal_identification_number'])
 $order->setReceiverZipCode(1000);
 $order->setReceiverCountryCode("BG");
 $order->setBillingAddressSameAsShipment();
@@ -180,6 +184,11 @@ foreach ($orders as $key => $order) {
     $shippiOrder->setReceiverCity($order['receiver_city']);
     $shippiOrder->setReceiverMobile($order['receiver_mobile']);
     $shippiOrder->setReceiverProvince($order['receiver_province']);
+    // required when receiver country - China
+    $shippiOrder->setReceiverDistrict($order['receiver_district']);
+    // required when receiver country - China
+    $shippiOrder->setReceiverIdentificationNumber($order['receiver_personal_identification_number'])
+
     //$orderPrepare->setReceiverZipCode($order['receiver_zip_code']);
     $shippiOrder->setReceiverZipCode("1550");
     //$orderPrepare->setReceiverCountryCode($order['receiver_country_code']);
