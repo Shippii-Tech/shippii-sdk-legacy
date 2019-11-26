@@ -114,6 +114,19 @@ class Order
     }
 
     /**
+     * Set Client Reference
+     *
+     * @param string $name
+     * @return Order
+     */
+    public function setClientReference(string $name): Order
+    {
+        $struct['client_reference'] = $name;
+        $this->setMetaData($struct);
+        return $this;
+    }
+
+    /**
      * Set Receiver Last Name
      *
      * @param string $lastName
