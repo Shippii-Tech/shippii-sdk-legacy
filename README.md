@@ -39,6 +39,8 @@ $order->setReceiverDistrict($order['receiver_district']);
 $order->setReceiverIdentificationNumber($order['receiver_personal_identification_number'])
 $order->setReceiverZipCode(1000);
 $order->setReceiverCountryCode("BG");
+//additional client reference
+$order->setClientReference("test-1234");
 $order->setBillingAddressSameAsShipment();
     
 //HEADS UP !!!
@@ -188,7 +190,8 @@ foreach ($orders as $key => $order) {
     $shippiOrder->setReceiverDistrict($order['receiver_district']);
     // required when receiver country - China
     $shippiOrder->setReceiverIdentificationNumber($order['receiver_personal_identification_number'])
-
+    //additional client reference
+    $shippiOrder->setClientReference("test-1234");
     //$orderPrepare->setReceiverZipCode($order['receiver_zip_code']);
     $shippiOrder->setReceiverZipCode("1550");
     //$orderPrepare->setReceiverCountryCode($order['receiver_country_code']);
