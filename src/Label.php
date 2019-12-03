@@ -60,26 +60,28 @@ class Label
      * @param bool $print
      * @param null $printerId
      * @param string $labelFormat
+     * @param int $dispatchNow
      * @return array
      * @throws Exceptions\Auth\ShippiiAuthenticationException
      * @throws Exceptions\Auth\ShippiiAuthorizationException
      * @throws Exceptions\ShippiiEndpointNotFoundException
      * @throws Exceptions\ShippiiServerErrorException
      * @throws Exceptions\ShippiiValidationException
-     * @throws Exceptions\ShippiiEndpointNotFoundException
      */
     public function getLabelsForSelectedOrders(
         array $yourReferences,
         bool $print = false,
         $printerId = null,
-        $labelFormat = 'pdf'
+        string $labelFormat = 'pdf',
+        int $dispatchNow = 0
     ): array {
         $endPoint = 'label/get/selected-orders';
         $requestData = new TightencoCollection();
         $requestData->put('query', [
             'print' => (int)$print,
             'printer_id' => $printerId,
-            'label_format' => $labelFormat
+            'label_format' => $labelFormat,
+            'dispatch-now' => $dispatchNow
         ]);
         $requestData->put('json', [
             'references' => $yourReferences
