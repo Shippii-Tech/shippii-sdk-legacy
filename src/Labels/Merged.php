@@ -2,44 +2,72 @@
 
 namespace Shippii\Labels;
 
+use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
+use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
+use Shippii\Exceptions\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\ShippiiServerErrorException;
+use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
 use Tightenco\Collect\Support\Collection as TightencoCollection;
 
+/**
+ * Class Merged
+ * @package Shippii\Labels
+ */
 class Merged
 {
+    /**
+     * @var Shippii
+     */
     private $shippii;
 
+    /**
+     * Merged constructor.
+     * @param Shippii $shippii
+     */
     public function __construct(Shippii $shippii)
     {
         $this->shippii = $shippii;
     }
 
     /**
-     * Set References
+     * Prepare the request
      *
      * @param array $references
-     * @return Merged
+     * @param array $options
+     * @return TightencoCollection
      */
-    public function setReferences(array $ids): TightencoCollection
+    protected function prepareRequest(array $references, array $options = []): TightencoCollection
     {
-        $references = ['references' => $ids];
-        return new TightencoCollection(['json' => $references]);
+        $request = new TightencoCollection([
+            'json' => $references
+        ]);
+        $request->put('query', $options);
+
+        return $request;
     }
 
     /**
      * Get Labels for specific orders
      *
+     * @param array $references
+     * @param array $options
      * @return array
+     * @throws ShippiiAuthenticationException
+     * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
+     * @throws ShippiiServerErrorException
+     * @throws ShippiiValidationException
      */
-    public function getMergedLabels($ids = null): array
+    public function bySelectedOrders(array $references, array $options = []): array
     {
-        $ids = [
-            //"q2124122112222",
-            //"q212412212",
-            "q2124122211323222"
-        ];
-        $references = $this->setReferences($ids);
-        $response = $this->shippii->connector->request('POST', 'label/get/selected-orders', "v1", $references);
+        $options = $this->prepareRequest($references, $options);
+        $response = $this->shippii->connector->request(
+            'POST',
+            'label/get/selected-orders',
+            "v1",
+            $options
+        );
         return $response->toArray();
     }
 }
