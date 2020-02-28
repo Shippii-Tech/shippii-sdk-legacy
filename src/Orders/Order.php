@@ -77,7 +77,7 @@ class Order
      * @param array $data
      * @return Order
      */
-    protected function setMetaData(array $data): Order
+    public function setMetaData(array $data): Order
     {
         /** @var TightencoCollection $metaData */
         $metaData = $this->options->get('meta_data');
