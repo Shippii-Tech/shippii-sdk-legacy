@@ -35,5 +35,6 @@ class TrackAndTrace
             'external_reference' => $trackingId
         ]);
         $response = $this->shippii->connector->request('GET', 'shipping/track-and-trace', 'v1', $requestData);
+        return $response;
     }
 }
