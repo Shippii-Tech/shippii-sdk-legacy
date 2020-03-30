@@ -3,6 +3,7 @@
 namespace Shippii\Shipping;
 
 use Shippii\Shippii;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 class TrackAndTrace
 {
@@ -29,7 +30,11 @@ class TrackAndTrace
 
     public function trackAndTrace($trackingId)
     {
-        $response = $this->shippii->connector->request('GET', 'track-and-trace/'. $trackingId, 'v1');
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $trackingId
+        ]);
+        $response = $this->shippii->connector->request('GET', 'shipping/track-and-trace', 'v1', $requestData);
         return $response;
     }
 }

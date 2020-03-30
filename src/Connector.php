@@ -22,7 +22,7 @@ class Connector
 {
     const SHIPPII_PRODUCTION_URL = 'https://api.shippii.com/';
     const SHIPPII_SANDBOX_URL = 'https://test-api.shippii.com/';
-    const SHIPPII_SDK_VERSION = "1.0.1";
+    const SHIPPII_SDK_VERSION = "1.4.4";
     const SHIPPII_TIMEOUT_SECONDS = 40;
 
     /**
@@ -264,8 +264,7 @@ class Connector
         $endPoint = $version . '/' . $endPoint;
 
         try {
-            $response = $this->parseResponse($this->client->request($method, $endPoint, $requestConfig));
-            return $response;
+            return $this->parseResponse($this->client->request($method, $endPoint, $requestConfig));
         } catch (ClientException $clientException) {
             return $this->parseException($clientException);
         } catch (GuzzleException $guzzleException) {
