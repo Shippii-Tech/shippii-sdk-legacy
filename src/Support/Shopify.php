@@ -2,6 +2,7 @@
 namespace Shippii\Support;
 
 use Shippii\Shippii;
+use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 /**
  * Class Shopify
