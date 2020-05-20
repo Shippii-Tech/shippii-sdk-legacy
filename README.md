@@ -1,7 +1,7 @@
 #### SHIPPII - PHP SDK (v1.4.5)
 
 Usage
-[Wiki](Home)
+[Wiki](wikis/home)
 -----
 To Make Order:
 ```php
