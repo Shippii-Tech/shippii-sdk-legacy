@@ -1,6 +1,6 @@
 #### SHIPPII - PHP SDK (v1.4.5)
 
-Usage
+Usagee
 -----
 To Make Order:
 ```php
