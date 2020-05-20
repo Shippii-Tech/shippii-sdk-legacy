@@ -1,4 +1,4 @@
-#### SHIPPII - PHP SDK (v1.0.1)
+#### SHIPPII - PHP SDK (v1.4.5)
 
 Usage
 -----
