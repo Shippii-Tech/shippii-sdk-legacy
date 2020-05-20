@@ -2,8 +2,8 @@
 
 #### You can install the Shippii SDK for PHP:
 
-1. As a dependency via Composer
++ As a dependency via Composer
 
-2. As a ZIP file of the SDK
++ As a ZIP file of the SDK
 
 For complete setup guide please check Shippii SDK [Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
