@@ -1,7 +1,7 @@
 #### SHIPPII - PHP SDK (v1.4.5)
 
 Usage
-[Wiki](wikis/home)
+[Wiki](//https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
 -----
 To Make Order:
 ```php
