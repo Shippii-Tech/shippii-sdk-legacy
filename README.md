@@ -1,9 +1,9 @@
 #### SHIPPII - PHP SDK (v1.4.5)
 
-You can install the Shippii SDK for PHP:
+####You can install the Shippii SDK for PHP:
 
-As a dependency via Composer
+1.As a dependency via Composer
 
-As a ZIP file of the SDK
+2.As a ZIP file of the SDK
 
-For complete setup guide please check Shippii [Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
+For complete setup guide please check Shippii SDK [Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
