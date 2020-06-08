@@ -49,8 +49,25 @@ class Control
         return $this->shippii->connector->request('get', 'shipping/cancel', 'v1', $requestData)->toArray();
     }
 
-    public function closeShipment(string $yourReference)
+    /**
+     * Close Shipment
+     * 
+     *
+     * @param  string  $yourReference
+     * @return array
+     * @throws ShippiiAuthenticationException
+     * @throws ShippiiAuthorizationException
+     * @throws ShippiiEndpointNotFoundException
+     * @throws ShippiiServerErrorException
+     * @throws ShippiiValidationException
+     */
+    public function closeShipment(string $yourReference): array
     {
-        return 'NOT IMPLEMENTED YET';
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $yourReference
+        ]);
+        return $this->shippii->connector->request('get', 'shipping/close', 'v1', $requestData)
+            ->toArray();
     }
 }
