@@ -51,6 +51,10 @@ class Control
 
     public function closeShipment(string $yourReference)
     {
-        return 'NOT IMPLEMENTED YET';
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $yourReference
+        ]);
+        return $this->shippii->connector->request('get', 'shipping/close', 'v1', $requestData);
     }
 }
