@@ -88,6 +88,18 @@ class Order
     }
 
     /**
+     * Set Service Point ID
+     *
+     * @param  string  $servicePointId
+     * @return $this
+     */
+    public function setServicePointId(string $servicePointId): Order
+    {
+        $this->setOptionsData('service_point_id', $servicePointId);
+        return $this;
+    }
+
+    /**
      * Set Shipping Rate Alias Name
      *
      * @param string $name
