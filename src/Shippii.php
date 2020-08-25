@@ -2,7 +2,7 @@
 
 namespace Shippii;
 
-use phpDocumentor\Reflection\Types\Void_;
+use Shippii\Orders\FetchOrders;
 use Shippii\Orders\Order;
 use Shippii\Shipping\ShippingMethod;
 use Tightenco\Collect\Support\Collection as TightencoCollection;
@@ -163,5 +163,15 @@ class Shippii
         $connection = $this->connector;
         $response = $connection->request('post', 'order/store-bulk', 'v1', $ordersBulkData);
         return $response->toArray();
+    }
+
+    /**
+     * Get All orders by criteria
+     *
+     * @return FetchOrders
+     */
+    public function getOrders(): FetchOrders
+    {
+        return new FetchOrders($this);
     }
 }
