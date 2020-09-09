@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16658299fa7c8b804ff2a6154daff0c2",
+    "content-hash": "131db2a8afc8064febdc81b149fd3647",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -776,16 +776,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.4.43",
+            "version": "v3.4.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "276cdd86063d42f9468cd26dab32daf546765050"
+                "reference": "3e31b82077039b1ea3b5a203ec1e3016606f4484"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/276cdd86063d42f9468cd26dab32daf546765050",
-                "reference": "276cdd86063d42f9468cd26dab32daf546765050",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3e31b82077039b1ea3b5a203ec1e3016606f4484",
+                "reference": "3e31b82077039b1ea3b5a203ec1e3016606f4484",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +855,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-22T14:59:03+00:00"
+            "time": "2020-08-17T07:27:37+00:00"
         },
         {
             "name": "tightenco/collect",
