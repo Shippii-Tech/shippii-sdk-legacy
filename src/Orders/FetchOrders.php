@@ -163,6 +163,15 @@ class FetchOrders
         return $this;
     }
 
+    public function getByReference(string $reference): array
+    {
+        return $this
+            ->shippii
+            ->connector
+            ->request('get', 'orders/by-reference/' . $reference, 'v2')
+            ->toArray();
+    }
+
     /**
      * @return array
      * @throws ShippiiAuthenticationException
