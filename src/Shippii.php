@@ -4,6 +4,7 @@ namespace Shippii;
 
 use Shippii\Orders\FetchOrders;
 use Shippii\Orders\Order;
+use Shippii\Shipping\Control;
 use Shippii\Shipping\ShippingMethod;
 use Tightenco\Collect\Support\Collection as TightencoCollection;
 
@@ -166,12 +167,32 @@ class Shippii
     }
 
     /**
-     * Get All orders by criteria
+     * Get Orders Object
      *
      * @return FetchOrders
      */
     public function getOrders(): FetchOrders
     {
         return new FetchOrders($this);
+    }
+
+    /**
+     * Get Labels Object
+     *
+     * @return Label
+     */
+    public function labels(): Label
+    {
+        return new Label($this);
+    }
+
+    /**
+     * Get Control Object
+     * 
+     * @return Control
+     */
+    public function control(): Control
+    {
+        return new Control($this);
     }
 }
