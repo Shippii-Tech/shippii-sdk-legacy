@@ -139,6 +139,13 @@ class OrderItem
         return $this;
     }
 
+    public function setVolume(float $volume): OrderItem
+    {
+        $this->setOrderItem('volume', $volume);
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return $this->items->toArray();
