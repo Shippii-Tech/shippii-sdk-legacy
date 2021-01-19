@@ -349,5 +349,4 @@ class Order
     {
         return $this->receiverData;
     }
-
 }

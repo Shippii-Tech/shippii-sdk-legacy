@@ -11,6 +11,8 @@ class UpdateStoreOrder
     private $shippii;
     /** @var string $order_id */
     private $order_id;
+    /** @var string $externalReference */
+    private $externalReference;
     /** @var string $receiver_first_name */
     private $receiver_first_name;
     /** @var string $receiver_last_name */
@@ -41,6 +43,18 @@ class UpdateStoreOrder
     public function setOrderId(string $order_id): UpdateStoreOrder
     {
         $this->order_id = $order_id;
+        return $this;
+    }
+
+    /**
+     * Set External Reference
+     * @param string $externalReference
+     * @return UpdateStoreOrder
+     */
+
+    public function externalReference(string $externalReference): UpdateStoreOrder
+    {
+        $this->externalReference = $externalReference;
         return $this;
     }
 
@@ -152,7 +166,7 @@ class UpdateStoreOrder
     public function getUpdateStoreOrder(): array
     {
         $request = $this->prepareRequest();
-        $response = $this->shippii->connector->request('put', '/public/store-update/' . $this->order_id, 'v1', $request);
+        $response = $this->shippii->connector->request('put', '/public/store-update', 'v1', $request);
 
         return $response->toArray();
     }
