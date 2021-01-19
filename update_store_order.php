@@ -1,0 +1,25 @@
+<?php
+include_once 'vendor/autoload.php';
+
+use Shippii\Shippii;
+
+$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVkOTc4NWRmZTk0ZjY1Y2E0NTUxMzY0MjQ3ZjUxZWM1Njc4N2Q5ZTBhZTYyNTQxNDU3NTdlODE4NWNiNjVlZDUyNGJjOWY5YjUwMGU4NjU5In0.eyJhdWQiOiIxIiwianRpIjoiNWQ5Nzg1ZGZlOTRmNjVjYTQ1NTEzNjQyNDdmNTFlYzU2Nzg3ZDllMGFlNjI1NDE0NTc1N2U4MTg1Y2I2NWVkNTI0YmM5ZjliNTAwZTg2NTkiLCJpYXQiOjE2MDY4MjAzNzksIm5iZiI6MTYwNjgyMDM3OSwiZXhwIjoxNjM4MzU2Mzc5LCJzdWIiOiI0Iiwic2NvcGVzIjpbImNhbi1mZXRjaC1tZXRob2RzIiwiY2FuLWZldGNoLXNoaXBwaW5nLXJhdGVzIiwiY2FuLWZldGNoLWNvdW50cmllcyIsInBheV9mcm9tX3dhbGxldCIsImNhbi1mZXRjaC13YWxsZXRzLWJhbGFuY2VzIiwiY3JlYXRlLW9yZGVyIiwiY3JlYXRlLXJldHVybi1vcmRlciIsInVwZGF0ZS1vd25lZC1vcmRlciIsImNhbmNlbC1vd25lZC1vcmRlciIsInZpZXctb3duZWQtb3JkZXIiLCJwcmludC1sYWJlbHMiLCJmdWxsLWFjY2Vzcy10by1jb21wYW55LW9yZGVycyJdfQ.kkLQc9JU2jBcq9TDcfZvXtORJSolBb_HCe7zJH5j_gAMQ9YvbE_Mo5uiA_7aty-CoCNdt-okPZVyJqR29eoxzlRhHATo7ZNHO_DH0qqDNSov3BqU7oanMorSDp2e-_rkhgbTGjzejAPmotYvysjNQlqvqgMj-rSOVtKt7EZG2wlqMDk5dtVcBFQhVRfQFQOCifZISdnuPN9TTD5l80y2wfvElwXElyRBddviHWNlSgo43x8NBWckZrKvD2jlyqZ3eQY4EYXbIsArsgbCgrSo3dtR-5j_ziKKLPTREDcHGHE8DoboW2p2abeF7-i3n3SE6qP-brlEdTevwpn9kKBEbzyAIN1fdxHjvb-iwvrsho-1I2FZnkOhC1Use0CYhScgXSzkNGBMBtv-ywN0OBZK9afWxo7ANDKp7dnJvVcO3CeXHaMr-pgN8Vi4XTlJ4EXSjEKlUkAh3Nxue4tEFJLHJnvdOvp0ZB0qL5Jij--fSgGz8pI7YzV0oOJ-6PzGq8jwxhLPN3e0TKCTup1nhxrq8UAViEb-h_GOtTBGgN7T7m-xC4L9AdO2u7P99OfwwAWusjYzzS88CgMQ_72svvPwvR1h6jDQ29U5EGm3oj4ixqOB1MJ0woEmlAo_rTVS1JkzAHoWzE3gK_2ODVNl82zTzXjYyHU_5EcNHmTjzsqgYpU";
+
+$testMode = true;
+$shippii = new Shippii($token, $testMode);
+$order = $shippii->updateOrder();
+
+$order->setOrderId("GoEDqL");
+$order->setReceiverFirstName('John');
+$order->setReceiverLastName('Doe');
+$order->setReceiverEmail('email@gmail.com');
+$order->setReceiverMobile('0888888888');
+$order->setReceiverAddress('Fancy Pancy Address');
+$order->setReceiverCity('Awesomecity');
+$order->setReceiverProvince('Province'); // Can be null
+$order->setReceiverZipCode('1000');
+try {
+    $response = $order->getUpdateStoreOrder();
+} catch (Exception $exception) {
+    dump($exception);
+}

@@ -41,7 +41,6 @@ $test = $shippii
 dda($test);
 
 $faker = Factory::create('nb_NO');
-
 $order = new Order();
 $order->setReceiverFirstName($faker->firstName);
 $order->setReceiverLastName($faker->lastName);
@@ -54,6 +53,7 @@ $order->setReceiverZipCode(2630);
 $order->setReceiverCountryCode('DK');
 $order->setShippingRateAliasName("My Custom Rate Name");
 $order->setShippingRateAliasPrice(120.0);
+$order->setExternalOrderStatus($faker->sentence);
 
 $order->setPayFromWallet(true)
     ->setReference($faker->randomNumber(5))
@@ -93,6 +93,7 @@ foreach ($items as $item) {
 
 try {
     $response = $shippii->setOrder($order)->sendOrder();
+    $status = $shippii->externalStatus('Status', 'Reference');
     dd($response);
 } catch (TypeError $error) {
     print $error->getMessage();
