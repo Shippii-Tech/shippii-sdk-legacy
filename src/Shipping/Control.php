@@ -2,12 +2,12 @@
 
 namespace Shippii\Shipping;
 
-use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
-use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
-use Shippii\Exceptions\ShippiiEndpointNotFoundException;
-use Shippii\Exceptions\ShippiiServerErrorException;
-use Shippii\Exceptions\ShippiiValidationException;
 use Shippii\Shippii;
+use Shippii\Exceptions\ShippiiValidationException;
+use Shippii\Exceptions\ShippiiServerErrorException;
+use Shippii\Exceptions\ShippiiEndpointNotFoundException;
+use Shippii\Exceptions\Auth\ShippiiAuthorizationException;
+use Shippii\Exceptions\Auth\ShippiiAuthenticationException;
 use Tightenco\Collect\Support\Collection as TightencoCollection;
 
 /**
@@ -28,6 +28,17 @@ class Control
     public function __construct(Shippii $shippii)
     {
         $this->shippii = $shippii;
+    }
+
+    public function updateExternalOrderStatus(string $externalStatus, string $yourReference)
+    {
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $yourReference,
+            'external_status' => $externalStatus
+        ]);
+
+        return $this->shippii->connector->request('get', 'public/order/external-status', 'v1', $requestData);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Shippii;
 
 use Shippii\Orders\FetchOrders;
 use Shippii\Orders\Order;
+use Shippii\Orders\UpdateStoreOrder;
 use Shippii\Shipping\Control;
 use Shippii\Shipping\ShippingMethod;
 use Tightenco\Collect\Support\Collection as TightencoCollection;
@@ -194,5 +195,27 @@ class Shippii
     public function control(): Control
     {
         return new Control($this);
+    }
+
+    /**
+     * Update order from Store
+     * @return UpdateStoreOrder
+     */
+
+    public function updateOrder(): UpdateStoreOrder
+    {
+        return new UpdateStoreOrder($this);
+    }
+
+    /**
+     * Change external status to Order
+     * @param string $externalStatus
+     * @param string $yourReference
+     * @return Control
+     */
+    public function externalStatus(string $externalStatus, string $yourReference): Control
+    {
+        $control = new Control($this);
+        return $control->updateExternalOrderStatus($externalStatus, $yourReference);
     }
 }

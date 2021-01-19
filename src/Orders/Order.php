@@ -305,6 +305,17 @@ class Order
     }
 
     /**
+     * Set external order to status
+     * @param string $externalStatus
+     * @return Order
+     */
+    public function setExternalOrderStatus(string $externalStatus): Order
+    {
+        $this->setOptionsData('external_status', $externalStatus);
+        return $this;
+    }
+
+    /**
      * Billing Same As Shipment
      *
      * @param bool $val
