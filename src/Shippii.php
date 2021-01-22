@@ -213,7 +213,7 @@ class Shippii
      * @param string $yourReference
      * @return Control
      */
-    public function externalStatus(string $externalStatus, string $yourReference): Control
+    public function externalStatus(string $externalStatus, string $yourReference): TightencoCollection
     {
         $control = new Control($this);
         return $control->updateExternalOrderStatus($externalStatus, $yourReference);
