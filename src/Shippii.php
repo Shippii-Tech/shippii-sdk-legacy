@@ -213,9 +213,9 @@ class Shippii
      * @param string $yourReference
      * @return Control
      */
-    public function externalStatus(string $externalStatus, string $yourReference): TightencoCollection
+    public function externalStatus(string $externalStatus, string $yourReference): array
     {
         $control = new Control($this);
-        return $control->updateExternalOrderStatus($externalStatus, $yourReference);
+        return $control->updateExternalOrderStatus($externalStatus, $yourReference)->toArray();
     }
 }

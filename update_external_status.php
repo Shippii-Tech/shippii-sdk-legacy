@@ -13,22 +13,11 @@ $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlhOTY4M2M3OWUyMWRkNTBhZG
 $testMode = true;
 $url = "https://test-api.shippii.com";
 $shippii = new Shippii($token, $testMode, $url);
-$order = $shippii->updateOrder();
-
-// Only order_id or external_reference could be passed to the request.
-// $order->setOrderId("Rwl1ma"); 
-$order->setExternalReference("351977");
-$order->setReceiverFirstName('Kayden');
-$order->setReceiverLastName('Harveyyy');
-$order->setReceiverEmail('Benny_Stoltenberg66@hotmail.com');
-$order->setReceiverMobile('+4560555949');
-$order->setReceiverAddress('640 Daren Gardens');
-$order->setReceiverCity('New Camilla');
-// $order->setReceiverProvince('Province'); // Can be null
-$order->setReceiverZipCode('2300');
+$externalReference = "351977";
+$externalStatus = "new test status";
 
 try {
-    $response = $order->getUpdateStoreOrder();
+    $response = $shippii->externalStatus($externalStatus, $externalReference);
 } catch (TypeError $error) {
     print $error->getMessage();
 } catch (ShippiiValidationException $shippiiValidationException) {

@@ -51,8 +51,7 @@ class UpdateStoreOrder
      * @param string $externalReference
      * @return UpdateStoreOrder
      */
-
-    public function externalReference(string $externalReference): UpdateStoreOrder
+    public function setExternalReference(string $externalReference): UpdateStoreOrder
     {
         $this->externalReference = $externalReference;
         return $this;
@@ -149,7 +148,21 @@ class UpdateStoreOrder
     protected function prepareRequest(): TightencoCollection
     {
         $result = new TightencoCollection();
-        $result->put('json', [
+        if ($this->order_id) {
+            return $result->put('json', [
+                'order_id' => $this->order_id,
+                'receiver_first_name' => $this->receiver_first_name,
+                'receiver_last_name' => $this->receiver_last_name,
+                'receiver_email' => $this->receiver_email,
+                'receiver_mobile' => $this->receiver_mobile,
+                'receiver_address' => $this->receiver_address,
+                'receiver_city' => $this->receiver_city,
+                'receiver_province' => $this->receiver_province,
+                'receiver_zip_code' => $this->receiver_zip_code
+            ]);
+        }
+        return $result->put('json', [
+            'external_reference' => $this->externalReference,
             'receiver_first_name' => $this->receiver_first_name,
             'receiver_last_name' => $this->receiver_last_name,
             'receiver_email' => $this->receiver_email,
@@ -159,15 +172,12 @@ class UpdateStoreOrder
             'receiver_province' => $this->receiver_province,
             'receiver_zip_code' => $this->receiver_zip_code
         ]);
-
-        return $result;
     }
 
     public function getUpdateStoreOrder(): array
     {
         $request = $this->prepareRequest();
-        $response = $this->shippii->connector->request('put', '/public/store-update', 'v1', $request);
-
+        $response = $this->shippii->connector->request('put', 'public/store-update', 'v1', $request);
         return $response->toArray();
     }
 }
