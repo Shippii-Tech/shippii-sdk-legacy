@@ -81,4 +81,19 @@ class Control
         return $this->shippii->connector->request('get', 'shipping/close', 'v1', $requestData)
             ->toArray();
     }
+
+    /**
+     * Enable Shipment
+     * @param string $yourReference
+     * @return array
+     */
+    public function enableShipment(string $yourReference): array
+    {
+        $requestData = new TightencoCollection();
+        $requestData->put('query', [
+            'external_reference' => $yourReference
+        ]);
+        return $this->shippii->connector->request('get', 'shipping/enable', 'v1', $requestData)
+            ->toArray();
+    }
 }
