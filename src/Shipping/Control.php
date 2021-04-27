@@ -82,6 +82,11 @@ class Control
             ->toArray();
     }
 
+    /**
+     * Enable Shipment
+     * @param string $yourReference
+     * @return array
+     */
     public function enableShipment(string $yourReference): array
     {
         $requestData = new TightencoCollection();
