@@ -36,6 +36,14 @@ $contents = [
                 "weight" => "0.7",
                 "volume" => null,
                 "quantity" => 3,
+            ],
+            1 => [
+                "name" => "Item 0.500kg©",
+                "sku" => "654321",
+                "ean" => null,
+                "weight" => "0.7",
+                "volume" => null,
+                "quantity" => 3,
             ]
         ]
     ],
