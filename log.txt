@@ -1,0 +1,39 @@
+{
+    "signature": "f6285339d2616cdbd12534c9b6f9fd128fde4c05dc63c794ddaad7dcdbff4409",
+    "isValid": true,
+    "contents": {
+        "order": {
+            "status": "Ready for Print",
+            "order_id": "Gogbqe",
+            "reference": "pancho1",
+            "shipping_method": "Test method",
+            "carrier": "GLS"
+        },
+        "receiver": {
+            "receiver_name": "asd asd",
+            "email": "b.bojkov@vconnect.dk",
+            "mobile": "+4574422385",
+            "country": {
+                "name": "Denmark",
+                "code": "DK"
+            },
+            "city": "nostrum",
+            "address": "true",
+            "zip_code": "8460"
+        },
+        "items": [{
+            "name": "Item 0.500kg\u00a9",
+            "sku": "123456",
+            "ean": null,
+            "weight": "0.7",
+            "volume": null,
+            "quantity": 3
+        }],
+        "data": {
+            "label_url": null,
+            "number_of_labels": null,
+            "printer": null,
+            "external_status": null
+        }
+    }
+}
