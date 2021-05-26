@@ -19,8 +19,8 @@
   },
   "minimum-stability": "stable",
   "require-dev": {
-    "fzaninotto/faker": "^1.8",
-    "phpunit/phpunit": "^6"
+    "fakerphp/faker": "^1.14",
+    "phpunit/phpunit": "^6|^8|^9.5"
   },
   "require": {
     "php": ">=7.0",
