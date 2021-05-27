@@ -43,6 +43,12 @@ var_dump($items->getItemWeights());
 var_dump($items->getItemVolumes());
 var_dump($items->getItemQuantities());
 
+// Carrier Parcels
+$carrierParcels = $order->getCarrierParcelObject();
+var_dump($carrierParcels->getCarrierOrderNumber());
+var_dump($carrierParcels->getCarrierTrackingUlr());
+var_dump($carrierParcels->getCarrierParcels());
+
 
 file_put_contents('log.txt', json_encode([
     'signature' => $signature,

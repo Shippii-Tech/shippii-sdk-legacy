@@ -128,4 +128,13 @@ class WebhookOrderObject
     {
         return new WebhookLabelObject($this->payload);
     }
+
+    /**
+     * Get Carrier Parcel Object
+     * @return WebhookCarrierParcelObject
+     */
+    public function getCarrierParcelObject(): WebhookCarrierParcelObject
+    {
+        return new WebhookCarrierParcelObject($this->payload);
+    }
 }
