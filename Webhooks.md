@@ -1,41 +1,29 @@
 # Webhooks
-
 ## Initialize Webhook class
-
 `$signature = $_SERVER['HTTP_SIGNATURE'];`
-
 `$wh = new \Shippii\Webhooks\Webhook($signature, '510');`
 - From there you can validate the request.
-
 ```
 $wh->isValid();
 ```
-
 - Also check the event type coming
 ```
 $wh->event()
 ```
-
 - After this access the main Order Object. ($payload being the request - which is described bellow)
-
 ```
 $orderObject = $wh->getOrderObject($payload)
 ```
-
 ---
-
 ## the $orderObject has these available methods
-
 - getOrderStatus()
 - getOrderId()
 - getOrderReference()
 - getOrderShippingMethod()
 - getOrderCarrier()
-
 - getOrderLabelObject()
     - getLabelUlr()
     - getNumberOfLabels()
-
 - getOrderReceiverObject()
     - getReceiverName()
     - getReceiverEmail()
@@ -45,7 +33,6 @@ $orderObject = $wh->getOrderObject($payload)
     - getReceiverCity()
     - getReceiverAddress()
     - getReceiverZipCode()
-
 - getOrderItemsObject()
     - getItemNames()
     - getItemSkus()
@@ -53,19 +40,14 @@ $orderObject = $wh->getOrderObject($payload)
     - getItemWeights()
     - getItemVolumes()
     - getItemQuantities()
-
 - getCarrierParcelObject()
     - getCarrierOrderNumber()
     - getCarrierTrackingUrl()
     - getCarrierParcels()
-
 ---
-
 ## Example Event Data
-
 ## single-order-labels-created
 ### This event is triggered when an order label is created.
-
 ```
 {
     "event-type": "single-order-labels-created",
@@ -115,34 +97,31 @@ $orderObject = $wh->getOrderObject($payload)
             "parcels": [{
                 "line": "1",
                 "number": "373501099216022394",
-                "tracking_url": null
+                "tracking_url": https://sporing.posten.no/sporing/70722150620943466
             }, {
                 "line": "2",
                 "number": "373501099216022400",
-                "tracking_url": null
+                "tracking_url": https://sporing.posten.no/sporing/70722150620943466
             }, {
                 "line": "3",
                 "number": "373501099216022417",
-                "tracking_url": null
+                "tracking_url": https://sporing.posten.no/sporing/70722150620943466
             }, {
                 "line": "4",
                 "number": "373501099216022424",
-                "tracking_url": null
+                "tracking_url": https://sporing.posten.no/sporing/70722150620943466
             }, {
                 "line": "5",
                 "number": "373501099216022431",
-                "tracking_url": null
+                "tracking_url": https://sporing.posten.no/sporing/70722150620943466
             }]
         }
     }
 }
 ```
-
 ---
-
 ## external-order-paid
 ### This event is triggered when an order from outside of Shippii is paid (for example: from magento)
-
 ```
 {
     "event-type": "external-order-paid",
@@ -180,15 +159,12 @@ $orderObject = $wh->getOrderObject($payload)
     "data": []
 }
 ```
-
 ---
-
 ## order-printed
 ### This event is triggered when an order is printed.
-
 ```
 {
-    "event-type": "single-order-labels-created",
+    "event-type": "order-printed",
     "order_id": "Gogbqe",
     "reference": "pancho1",
     "order_status": "Ready for Print",
@@ -225,15 +201,12 @@ $orderObject = $wh->getOrderObject($payload)
     }
 }
 ```
-
 ---
-
 ## external-status-changed
 ### This event is triggered when the order status is changed outside of Shippii (For Example: From Magento)
-
 ```
 {
-    "event-type": "single-order-labels-created",
+    "event-type": "external-status-changed",
     "order_id": "Gogbqe",
     "reference": "pancho1",
     "order_status": "Ready for Print",
@@ -270,15 +243,12 @@ $orderObject = $wh->getOrderObject($payload)
     }
 }
 ```
-
 ---
-
 ## single-order-labels-failed
 ### This event is triggered when creation of the labels for an order fails.
-
 ```
 {
-    "event-type": "single-order-labels-created",
+    "event-type": "single-order-labels-failed",
     "order_id": "Gogbqe",
     "reference": "pancho1",
     "order_status": "Ready for Print",
