@@ -2,6 +2,7 @@
 
 namespace Shippii;
 
+use Shippii\Invoices\Invoice;
 use Shippii\Orders\FetchOrders;
 use Shippii\Orders\Order;
 use Shippii\Orders\UpdateStoreOrder;
@@ -205,6 +206,15 @@ class Shippii
     public function updateOrder(): UpdateStoreOrder
     {
         return new UpdateStoreOrder($this);
+    }
+
+    /**
+     * Get Invoice
+     * @return Invoice
+     */
+    public function invoice(): Invoice
+    {
+        return new Invoice($this);
     }
 
     /**
