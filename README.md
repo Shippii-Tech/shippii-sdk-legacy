@@ -1,4 +1,4 @@
-#### SHIPPII - PHP SDK (v1.8.0)
+#### SHIPPII - PHP SDK (v1.8.1)
 
 #### You can install the Shippii SDK for PHP:
 
