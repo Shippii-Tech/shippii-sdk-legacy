@@ -327,6 +327,17 @@ class Order
         return $this;
     }
 
+    /**
+     * Set Comment for metadata.
+     * @param string $comment
+     * @return Order
+     */
+    public function setComment(string $comment): Order
+    {
+        $this->setOptionsData('comment', $comment);
+        return $this;
+    }
+
     public function getOrderOptions(): TightencoCollection
     {
         return $this->options;
