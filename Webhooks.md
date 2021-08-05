@@ -249,39 +249,131 @@ $orderObject = $wh->getOrderObject($payload)
 ```
 {
     "event-type": "single-order-labels-failed",
-    "order_id": "Gogbqe",
-    "reference": "pancho1",
-    "order_status": "Ready for Print",
+    "order_id": "yDKZYw",
+    "reference": "928032",
+    "order_status": "On Hold",
     "order": {
-        "id": "Gogbqe",
-        "reference": "pancho1",
-        "shipping_method": "Test method",
-        "carrier": "Budbee",
-        "created_at": "2021-02-18 14:19:38",
+        "id": "yDKZYw",
+        "reference": "928032",
+        "shipping_method": "DHL International Finland Home",
+        "carrier": "DHL",
+        "created_at": "2021-08-05 15:53:16",
         "receiver": {
-            "first_name": "asd",
-            "last_name": "asd",
-            "email": "b.bojkov@vconnect.dk",
-            "mobile": "+4574422385",
+            "first_name": "test",
+            "last_name": "Gleason",
+            "email": "Rosalyn73@gmail.com",
+            "mobile": "j",
             "country": {
-                "name": "Denmark",
-                "code": "DK"
+                "name": "Finland",
+                "code": "FI"
             },
-            "city": "nostrum",
-            "address": "true",
-            "zip_code": "8460"
+            "city": "North Joshua",
+            "address": "00161 Schamberger Run",
+            "zip_code": "00180"
         },
         "items": [{
-            "name": "Item 0.500kg",
-            "sku": "123456",
+            "name": "Handmade Cotton Bacon",
+            "sku": "1323445",
             "ean": null,
-            "weight": "0.7",
+            "weight": "10",
             "volume": null,
-            "quantity": 3
+            "quantity": 1
         }]
     },
     "data": {
-        "order_labels_failed": "status"
+        "event-type": "single-order-labels-failed",
+        "order_id": "yDKZYw",
+        "reference": "928032",
+        "order_status": null,
+        "data": {
+            "label_url": null,
+            "number_of_labels": null
+        },
+        "carrier": {
+            "carrier_order_number": null,
+            "carrier_tracking_url": null,
+            "parcels": null
+        }
     }
+}
+```
+---
+## order-created
+### This event is triggered when an order is initially created
+```
+{
+    "event-type": "order-created",
+    "order_id": "Rdq3bJ",
+    "reference": "357654",
+    "order_status": null,
+    "order": {
+        "id": "Rdq3bJ",
+        "reference": "357654",
+        "shipping_method": "GLS Home - LabelConnect",
+        "carrier": "GLS",
+        "created_at": "2021-08-05 15:47:17",
+        "receiver": {
+            "first_name": "Jevon",
+            "last_name": "Daniel",
+            "email": "Jacinthe85@yahoo.com",
+            "mobile": "+33185737233",
+            "country": {
+                "name": "France",
+                "code": "FR"
+            },
+            "city": "Tillmanborough",
+            "address": "94749 Bernadine Summit",
+            "zip_code": "75003"
+        },
+        "items": [{
+            "name": "Licensed Frozen Salad",
+            "sku": "1323445",
+            "ean": null,
+            "weight": "5",
+            "volume": null,
+            "quantity": 1
+        }]
+    },
+    "data": []
+}
+```
+---
+## order-updated
+### This event is triggered when an order is successfully updated.
+```
+{
+    "event-type": "order-updated",
+    "order_id": "0BOZwE",
+    "reference": "812585",
+    "order_status": "Ready for Print",
+    "order": {
+        "id": "0BOZwE",
+        "reference": "812585",
+        "shipping_method": "GLS Home - LabelConnect",
+        "carrier": "GLS",
+        "created_at": "2021-08-05 15:44:09",
+        "receiver": {
+            "first_name": "lilia",
+            "last_name": "Mitchell",
+            "email": "Darwin18@gmail.com",
+            "mobile": "+33185737233",
+            "country": {
+                "name": "France",
+                "code": "FR"
+            },
+            "city": "West Beauberg",
+            "address": "951 Ana Mission",
+            "zip_code": "75003"
+        },
+        "items": [{
+            "name": "Small Wooden Bacon",
+            "sku": "1323445",
+            "ean": null,
+            "weight": "5",
+            "volume": null,
+            "quantity": 1
+        }]
+    },
+    "data": []
 }
 ```
