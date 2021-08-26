@@ -32,6 +32,22 @@ class Invoice
     private $store_second_address;
     /** @var string $store_vat_number */
     private $store_vat_number;
+    /** @var float $discount */
+    private $discount;
+    /** @var string $senderDetailsName */
+    private $senderDetailsName;
+    /** @var string $senderDetailsPhoneNumber */
+    private $senderDetailsPhoneNumber;
+    /** @var string $senderDetailsCity */
+    private $senderDetailsCity;
+    /** @var string $senderDetailsCountryName */
+    private $senderDetailsCountryName;
+    /** @var string $senderDetailsPostalCode */
+    private $senderDetailsPostalCode;
+    /** @var string $senderDetailsAddress */
+    private $senderDetailsAddress;
+    /** @var string $senderDetailsEmail */
+    private $senderDetailsEmail;
 
     /** @var string $custom_field_1_custom_text_1 */
     private $custom_field_1_custom_text_1;
@@ -93,6 +109,16 @@ class Invoice
             'address' => $this->store_address,
             'address_2' => $this->store_second_address,
             'vat_number' => $this->store_vat_number,
+            'discount' => $this->discount,
+            'sender_details' => [
+                'name' => $this->senderDetailsName,
+                'phone_number' => $this->senderDetailsPhoneNumber,
+                'city' => $this->senderDetailsCity,
+                'country_name' => $this->senderDetailsCountryName,
+                'postal_code' => $this->senderDetailsPostalCode,
+                'address' => $this->senderDetailsAddress,
+                'email' => $this->senderDetailsEmail
+            ],
             // Custom fields
             'custom_field_1_custom_text_1' => $this->custom_field_1_custom_text_1,
             'custom_field_1_custom_text_2' => $this->custom_field_1_custom_text_2,
@@ -245,6 +271,94 @@ class Invoice
     public function setStoreVatNumber(string $storeVatNumber): Invoice
     {
         $this->store_vat_number = $storeVatNumber;
+        return $this;
+    }
+
+    /**
+     * Set Discount for Consolidate Invoice
+     * @param float $discount
+     * @return Invoice
+     */
+    public function setDiscount(float $discount): Invoice
+    {
+        $this->discount = $discount;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Name
+     * @param string $senderDetailsName
+     * @return Invoice
+     */
+    public function setSenderDetailsName(string $senderDetailsName): Invoice
+    {
+        $this->senderDetailsName = $senderDetailsName;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Phone Number
+     * @param string $senderDetailsPhoneNumber
+     * @return Invoice
+     */
+    public function setSenderDetailsPhoneNumber(string $senderDetailsPhoneNumber): Invoice
+    {
+        $this->senderDetailsPhoneNumber = $senderDetailsPhoneNumber;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - City
+     * @param string $senderDetailsCity
+     * @return Invoice
+     */
+    public function setSenderDetailsCity(string $senderDetailsCity): Invoice
+    {
+        $this->senderDetailsCity = $senderDetailsCity;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Country Name
+     * @param string $senderDetailsCountryName
+     * @return Invoice
+     */
+    public function setSenderDetailsCountryName(string $senderDetailsCountryName): Invoice
+    {
+        $this->senderDetailsCountryName = $senderDetailsCountryName;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Postal Code
+     * @param string $senderDetailsPostalCode
+     * @return Invoice
+     */
+    public function setSenderDetailsPostalCode(string $senderDetailsPostalCode): Invoice
+    {
+        $this->senderDetailsPostalCode = $senderDetailsPostalCode;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Sender Address
+     * @param string $senderDetailsAddress
+     * @return Invoice
+     */
+    public function setSenderDetailsAddress(string $senderDetailsAddress): Invoice
+    {
+        $this->senderDetailsAddress = $senderDetailsAddress;
+        return $this;
+    }
+
+    /**
+     * Set Sender Details - Email
+     * @param string $senderDetailsEmail
+     * @return Invoice
+     */
+    public function setSenderDetailsEmail(string $senderDetailsEmail): Invoice
+    {
+        $this->senderDetailsEmail = $senderDetailsEmail;
         return $this;
     }
 
