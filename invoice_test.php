@@ -41,6 +41,15 @@ $invoice->setStoreCity("Flensburg");
 $invoice->setStoreAddress("Apenrader Straße 41 - 45");
 $invoice->setStoreSecondAddress("HRB 14683 FL");
 $invoice->setStoreVatNumber("DE338533984");
+$invoice->setDiscount(1.23);
+// Sender Details
+$invoice->setSenderDetailsName("Sender Name");
+$invoice->setSenderDetailsPhoneNumber("+4790000000");
+$invoice->setSenderDetailsCity("SenderCity");
+$invoice->setSenderDetailsCountryName("Germany");
+$invoice->setSenderDetailsPostalCode("24939");
+$invoice->setSenderDetailsAddress("Sender Address");
+$invoice->setSenderDetailsEmail("sender@gmail.com");
 
 // Custom Fields from custom field 1 to 3, with custom text from 1 to 6
 // $invoice->setCustomField_1_CustomText_1('custom text');
