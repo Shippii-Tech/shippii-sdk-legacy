@@ -14,79 +14,19 @@ class Invoice
     private $references;
     /** @var string $invoice_type */
     private $invoice_type;
-    /** @var string $store_name */
-    private $store_name;
-    /** @var string $store_phone_number */
-    private $store_phone_number;
-    /** @var string $store_country_name */
-    private $store_country_name;
-    /** @var string $store_region */
-    private $store_region;
-    /** @var string $store_postal_code */
-    private $store_postal_code;
-    /** @var string $store_city */
-    private $store_city;
-    /** @var string $store_address */
-    private $store_address;
-    /** @var string $store_second_address */
-    private $store_second_address;
-    /** @var string $store_vat_number */
-    private $store_vat_number;
     /** @var float $discount */
     private $discount;
-    /** @var string $senderDetailsName */
-    private $senderDetailsName;
-    /** @var string $senderDetailsPhoneNumber */
-    private $senderDetailsPhoneNumber;
-    /** @var string $senderDetailsCity */
-    private $senderDetailsCity;
-    /** @var string $senderDetailsCountryName */
-    private $senderDetailsCountryName;
-    /** @var string $senderDetailsPostalCode */
-    private $senderDetailsPostalCode;
-    /** @var string $senderDetailsAddress */
-    private $senderDetailsAddress;
-    /** @var string $senderDetailsEmail */
-    private $senderDetailsEmail;
+    /** @var array $sender_data */
+    private $sender_data;
+    /** @var array $vat_agent */
+    private $vat_agent;
+    /** @var array $footer_field_1 */
+    private $footer_field_1;
+    /** @var array $footer_field_2 */
+    private $footer_field_2;
+    /** @var array $footer_field_3 */
+    private $footer_field_3;
 
-    /** @var string $custom_field_1_custom_text_1 */
-    private $custom_field_1_custom_text_1;
-    /** @var string $custom_field_1_custom_text_2 */
-    private $custom_field_1_custom_text_2;
-    /** @var string $custom_field_1_custom_text_3 */
-    private $custom_field_1_custom_text_3;
-    /** @var string $custom_field_1_custom_text_4 */
-    private $custom_field_1_custom_text_4;
-    /** @var string $custom_field_1_custom_text_5 */
-    private $custom_field_1_custom_text_5;
-    /** @var string $custom_field_1_custom_text_6 */
-    private $custom_field_1_custom_text_6;
-
-    /** @var string $custom_field_2_custom_text_1 */
-    private $custom_field_2_custom_text_1;
-    /** @var string $custom_field_2_custom_text_2 */
-    private $custom_field_2_custom_text_2;
-    /** @var string $custom_field_2_custom_text_3 */
-    private $custom_field_2_custom_text_3;
-    /** @var string $custom_field_2_custom_text_4 */
-    private $custom_field_2_custom_text_4;
-    /** @var string $custom_field_2_custom_text_5 */
-    private $custom_field_2_custom_text_5;
-    /** @var string $custom_field_2_custom_text_6 */
-    private $custom_field_2_custom_text_6;
-
-    /** @var string $custom_field_3_custom_text_1 */
-    private $custom_field_3_custom_text_1;
-    /** @var string $custom_field_3_custom_text_2 */
-    private $custom_field_3_custom_text_2;
-    /** @var string $custom_field_3_custom_text_3 */
-    private $custom_field_3_custom_text_3;
-    /** @var string $custom_field_3_custom_text_4 */
-    private $custom_field_3_custom_text_4;
-    /** @var string $custom_field_3_custom_text_5 */
-    private $custom_field_3_custom_text_5;
-    /** @var string $custom_field_3_custom_text_6 */
-    private $custom_field_3_custom_text_6;
 
     public function __construct(Shippii $shippii)
     {
@@ -100,44 +40,14 @@ class Invoice
         return $result->put('json', [
             'order_references' => $this->references,
             'type' => $this->invoice_type,
-            'store_name' => $this->store_name,
-            'store_phone_number' => $this->store_phone_number,
-            'country_name' => $this->store_country_name,
-            'region' => $this->store_region,
-            'postal_code' => $this->store_postal_code,
-            'city' => $this->store_city,
-            'address' => $this->store_address,
-            'address_2' => $this->store_second_address,
-            'vat_number' => $this->store_vat_number,
             'discount' => $this->discount,
-            'sender_details' => [
-                'name' => $this->senderDetailsName,
-                'phone_number' => $this->senderDetailsPhoneNumber,
-                'city' => $this->senderDetailsCity,
-                'country_name' => $this->senderDetailsCountryName,
-                'postal_code' => $this->senderDetailsPostalCode,
-                'address' => $this->senderDetailsAddress,
-                'email' => $this->senderDetailsEmail
-            ],
-            // Custom fields
-            'custom_field_1_custom_text_1' => $this->custom_field_1_custom_text_1,
-            'custom_field_1_custom_text_2' => $this->custom_field_1_custom_text_2,
-            'custom_field_1_custom_text_3' => $this->custom_field_1_custom_text_3,
-            'custom_field_1_custom_text_4' => $this->custom_field_1_custom_text_4,
-            'custom_field_1_custom_text_5' => $this->custom_field_1_custom_text_5,
-            'custom_field_1_custom_text_6' => $this->custom_field_1_custom_text_6,
-            'custom_field_2_custom_text_1' => $this->custom_field_2_custom_text_1,
-            'custom_field_2_custom_text_2' => $this->custom_field_2_custom_text_2,
-            'custom_field_2_custom_text_3' => $this->custom_field_2_custom_text_3,
-            'custom_field_2_custom_text_4' => $this->custom_field_2_custom_text_4,
-            'custom_field_2_custom_text_5' => $this->custom_field_2_custom_text_5,
-            'custom_field_2_custom_text_6' => $this->custom_field_2_custom_text_6,
-            'custom_field_3_custom_text_1' => $this->custom_field_3_custom_text_1,
-            'custom_field_3_custom_text_2' => $this->custom_field_3_custom_text_2,
-            'custom_field_3_custom_text_3' => $this->custom_field_3_custom_text_3,
-            'custom_field_3_custom_text_4' => $this->custom_field_3_custom_text_4,
-            'custom_field_3_custom_text_5' => $this->custom_field_3_custom_text_5,
-            'custom_field_3_custom_text_6' => $this->custom_field_3_custom_text_6
+            'custom_fields' => [
+                'sender_data' => $this->sender_data,
+                'vat_agent' => $this->vat_agent,
+                'footer_field_1' => $this->footer_field_1,
+                'footer_field_2' => $this->footer_field_2,
+                'footer_field_3' => $this->footer_field_3
+            ]
         ]);
     }
 
@@ -176,105 +86,6 @@ class Invoice
     }
 
     /**
-     * Set Store Name
-     * @param string $storeName
-     * @return Invoice
-     */
-    public function setStoreName(string $storeName): Invoice
-    {
-        $this->store_name = $storeName;
-        return $this;
-    }
-
-    /**
-     * Set Store Phone Number
-     * @param string $storePhoneNumber
-     * @return Invoice
-     */
-    public function setStorePhoneNumber(string $storePhoneNumber): Invoice
-    {
-        $this->store_phone_number = $storePhoneNumber;
-        return $this;
-    }
-
-    /**
-     * Set Store Country Name
-     * @param string $storeCountryName
-     * @return Invoice
-     */
-    public function setStoreCountryName(string $storeCountryName): Invoice
-    {
-        $this->store_country_name = $storeCountryName;
-        return $this;
-    }
-
-    /**
-     * Set Store Region
-     * @param string $storeRegion
-     * @return Invoice
-     */
-    public function setStoreRegion(string $storeRegion): Invoice
-    {
-        $this->store_region = $storeRegion;
-        return $this;
-    }
-
-    /**
-     * Set Store Postal Code
-     * @param string $storePostalCode
-     * @return Invoice
-     */
-    public function setStorePostalCode(string $storePostalCode): Invoice
-    {
-        $this->store_postal_code = $storePostalCode;
-        return $this;
-    }
-
-    /**
-     * Set Store City
-     * @param string $storeCity
-     * @return Invoice
-     */
-    public function setStoreCity(string $storeCity): Invoice
-    {
-        $this->store_city = $storeCity;
-        return $this;
-    }
-
-    /**
-     * Set Store Address
-     * @param string $storeAddress
-     * @return Invoice
-     */
-    public function setStoreAddress(string $storeAddress): Invoice
-    {
-        $this->store_address = $storeAddress;
-        return $this;
-    }
-
-    /**
-     * Set Store Second Address
-     * @param string $storeSecondAddress
-     * @return Invoice
-     */
-    public function setStoreSecondAddress(string $storeSecondAddress): Invoice
-    {
-        $this->store_second_address = $storeSecondAddress;
-        return $this;
-    }
-
-    /**
-     * Set Store Vat Number
-     * @param string $storeVatNumber
-     * @return Invoice
-     */
-    public function setStoreVatNumber(string $storeVatNumber): Invoice
-    {
-        $this->store_vat_number = $storeVatNumber;
-        return $this;
-    }
-
-    /**
      * Set Discount for Consolidate Invoice
      * @param float $discount
      * @return Invoice
@@ -286,277 +97,62 @@ class Invoice
     }
 
     /**
-     * Set Sender Details - Name
-     * @param string $senderDetailsName
+     * Set Sender Data
+     * Up to 10 parameters
+     * @param array $data
      * @return Invoice
      */
-    public function setSenderDetailsName(string $senderDetailsName): Invoice
+    public function setSenderData(array $data): Invoice
     {
-        $this->senderDetailsName = $senderDetailsName;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - Phone Number
-     * @param string $senderDetailsPhoneNumber
-     * @return Invoice
-     */
-    public function setSenderDetailsPhoneNumber(string $senderDetailsPhoneNumber): Invoice
-    {
-        $this->senderDetailsPhoneNumber = $senderDetailsPhoneNumber;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - City
-     * @param string $senderDetailsCity
-     * @return Invoice
-     */
-    public function setSenderDetailsCity(string $senderDetailsCity): Invoice
-    {
-        $this->senderDetailsCity = $senderDetailsCity;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - Country Name
-     * @param string $senderDetailsCountryName
-     * @return Invoice
-     */
-    public function setSenderDetailsCountryName(string $senderDetailsCountryName): Invoice
-    {
-        $this->senderDetailsCountryName = $senderDetailsCountryName;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - Postal Code
-     * @param string $senderDetailsPostalCode
-     * @return Invoice
-     */
-    public function setSenderDetailsPostalCode(string $senderDetailsPostalCode): Invoice
-    {
-        $this->senderDetailsPostalCode = $senderDetailsPostalCode;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - Sender Address
-     * @param string $senderDetailsAddress
-     * @return Invoice
-     */
-    public function setSenderDetailsAddress(string $senderDetailsAddress): Invoice
-    {
-        $this->senderDetailsAddress = $senderDetailsAddress;
-        return $this;
-    }
-
-    /**
-     * Set Sender Details - Email
-     * @param string $senderDetailsEmail
-     * @return Invoice
-     */
-    public function setSenderDetailsEmail(string $senderDetailsEmail): Invoice
-    {
-        $this->senderDetailsEmail = $senderDetailsEmail;
-        return $this;
-    }
-
-    /**
-     * Set Custom field one with custom text one
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_1(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_1 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field two with custom text two
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_2(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_2 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field three with custom text three
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_3(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_3 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field four with custom text four
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_4(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_4 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field five with custom text five
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_5(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_5 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field six with custom text six
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_1_CustomText_6(string $data): Invoice
-    {
-        $this->custom_field_1_custom_text_6 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom Field 2 with custom text 1
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_2_CustomText_1(string $data): Invoice
-    {
-        $this->custom_field_2_custom_text_1 = $data;
+        $this->sender_data = $data;
         return $this;
     }
     
     /**
-     * Set Custom field 2 with custom text 2
-     * @param string $data
+     * Set Vat Agent Data
+     * Up to 10 parameters
+     * @param array $data
      * @return Invoice
      */
-    public function setCustomField_2_CustomText_2(string $data): Invoice
+    public function setVatAgent(array $data): Invoice
     {
-        $this->custom_field_2_custom_text_2 = $data;
+        $this->vat_agent = $data;
         return $this;
     }
 
     /**
-     * Set Custom field 2 with custom text 3
-     * @param string $data
+     * Set First Footer Field
+     * Up to 10 parameters
+     * @param array $data
      * @return Invoice
      */
-    public function setCustomField_2_CustomText_3(string $data): Invoice
+    public function setFirstFooterField(array $data): Invoice
     {
-        $this->custom_field_2_custom_text_3 = $data;
+        $this->footer_field_1 = $data;
         return $this;
     }
 
     /**
-     * Set Custom field 2 with custom text 4
-     * @param string $data
+     * Set Second Footer Field
+     * Up to 10 parameters
+     * @param array $data
      * @return Invoice
      */
-    public function setCustomField_2_CustomText_4(string $data): Invoice
+    public function setSecondFooterField(array $data): Invoice
     {
-        $this->custom_field_2_custom_text_4 = $data;
-        return $this;
-    }
-    
-    /**
-     * Set Custom field 2 with custom text 5
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_2_CustomText_5(string $data): Invoice
-    {
-        $this->custom_field_2_custom_text_5 = $data;
+        $this->footer_field_2 = $data;
         return $this;
     }
 
     /**
-     * Set custom field 2 with custom text 6
-     * @param string $data
+     * Set Third Footer Field
+     * Up to 10 parameters
+     * @param array $data
      * @return Invoice
      */
-    public function setCustomField_2_CustomText_6(string $data): Invoice
+    public function setThirdFooterField(array $data): Invoice
     {
-        $this->custom_field_2_custom_text_6 = $data;
-        return $this;
-    }
-
-    /**
-     * Set Custom field 3 with custom text 1
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_1(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_1 = $data;
-        return $this;
-    }
- 
-    /**
-     * Set Custom field 3 with custom text 2
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_2(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_2 = $data;
-        return $this;
-    }
- 
-    /**
-     * Set Custom field 3 with custom text 3
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_3(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_3 = $data;
-        return $this;
-    }
- 
-    /**
-     * Set Custom field 3 with custom text 4
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_4(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_4 = $data;
-        return $this;
-    }
- 
-    /**
-     * Set custom field 3 with custom text 5
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_5(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_5 = $data;
-        return $this;
-    }
- 
-    /**
-     * Set custom field 3 with custom text 6
-     * @param string $data
-     * @return Invoice
-     */
-    public function setCustomField_3_CustomText_6(string $data): Invoice
-    {
-        $this->custom_field_3_custom_text_6 = $data;
+        $this->footer_field_3 = $data;
         return $this;
     }
 }
