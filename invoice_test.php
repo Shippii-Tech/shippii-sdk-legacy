@@ -28,32 +28,53 @@ $data = [
 foreach ($data as $key => $datum) {
     $invoice->setInvoiceOrderReferences($datum['order_reference'], $datum['invoice_id']);
 }
-
 // $invoice->setInvoiceOrderReferences("reference", "invoice_id");
 // $invoice->setInvoiceOrderReferences("reference2", "invoice_id2");
-$invoice->setInvoiceType("consolidate");
-$invoice->setStoreName("BrandHouse UG");
-$invoice->setStorePhoneNumber("+46 10 551 62 17");
-$invoice->setStoreCountryName("Germany");
-$invoice->setStoreRegion("Test Region");
-$invoice->setStorePostalCode("24939");
-$invoice->setStoreCity("Flensburg");
-$invoice->setStoreAddress("Apenrader Straße 41 - 45");
-$invoice->setStoreSecondAddress("HRB 14683 FL");
-$invoice->setStoreVatNumber("DE338533984");
-$invoice->setDiscount(1.23);
-// Sender Details
-$invoice->setSenderDetailsName("Sender Name");
-$invoice->setSenderDetailsPhoneNumber("+4790000000");
-$invoice->setSenderDetailsCity("SenderCity");
-$invoice->setSenderDetailsCountryName("Germany");
-$invoice->setSenderDetailsPostalCode("24939");
-$invoice->setSenderDetailsAddress("Sender Address");
-$invoice->setSenderDetailsEmail("sender@gmail.com");
 
-// Custom Fields from custom field 1 to 3, with custom text from 1 to 6
-// $invoice->setCustomField_1_CustomText_1('custom text');
-// $invoice->setCustomField_3_CustomText_6('custom text');
+$invoice->setInvoiceType("consolidate");
+$invoice->setDiscount(1.23);
+
+// Sender Details
+$senderDetails = [
+    'John Doe',
+    'City',
+    'Country',
+    'Address'
+];
+$invoice->setSenderData($senderDetails);
+
+// Vat Agent
+$vatAgent = [
+    'Store Name',
+    'City',
+    'Denmark',
+    'Company number: DE338533984'
+];
+$invoice->setVatAgent($vatAgent);
+
+// First Footer Field
+$firstFooterField = [
+    'first row',
+    'second row',
+    'third row',
+];
+$invoice->setFirstFooterField($firstFooterField);
+
+// Second Footer Field
+$secondFooterField = [
+    'first row',
+    'second row',
+    'third row'
+];
+$invoice->setSecondFooterField($secondFooterField);
+
+// Third Footer F
+$thirdFooterField = [
+    'first row',
+    'second row',
+    'third row'
+];
+$invoice->setThirdFooterField($thirdFooterField);
 
 try {
     $response = $invoice->getInvoice();
