@@ -39,7 +39,7 @@ class Invoice
         $result = new Collection();
 
         $requestData = [];
-        $this->references ? $requestData['order_reference'] = $this->references : null;
+        $this->references ? $requestData['order_references'] = $this->references : null;
         $this->invoice_type ? $requestData['type'] = $this->invoice_type : null;
         $this->discount ? $requestData['discount'] = $this->discount : null;
         $this->sender_data ? $requestData['custom_fields']['sender_data'] = $this->sender_data : null;
@@ -48,9 +48,7 @@ class Invoice
         $this->footer_field_2 ? $requestData['custom_fields']['footer_field_2'] = $this->footer_field_2 : null;
         $this->footer_field_3 ? $requestData['custom_fields']['footer_field_3'] = $this->footer_field_3 : null;
 
-        return $result->put('json', [
-            $requestData
-        ]);
+        return $result->put('json', $requestData);
     }
 
     /**

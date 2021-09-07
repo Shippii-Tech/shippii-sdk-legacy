@@ -10,7 +10,7 @@
 For complete setup guide please check [Shippii SDK Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
 
 ---
-## 07.09.2021 - v1.8.5
+## 07.09.2021 - ~~v1.8.5~~ v1.8.6
 > Fixed Invoice request to send only data that is passed.
 ---
 ## 30.08.2021 - v1.8.4
