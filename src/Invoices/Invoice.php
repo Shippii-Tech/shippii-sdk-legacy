@@ -37,17 +37,19 @@ class Invoice
     protected function prepareRequest(): Collection
     {
         $result = new Collection();
+
+        $requestData = [];
+        $this->references ? $requestData['order_reference'] = $this->references : null;
+        $this->invoice_type ? $requestData['type'] = $this->invoice_type : null;
+        $this->discount ? $requestData['discount'] = $this->discount : null;
+        $this->sender_data ? $requestData['custom_fields']['sender_data'] = $this->sender_data : null;
+        $this->vat_agent ? $requestData['custom_fields']['vat_agent'] = $this->vat_agent : null;
+        $this->footer_field_1 ? $requestData['custom_fields']['footer_field_1'] = $this->footer_field_1 : null;
+        $this->footer_field_2 ? $requestData['custom_fields']['footer_field_2'] = $this->footer_field_2 : null;
+        $this->footer_field_3 ? $requestData['custom_fields']['footer_field_3'] = $this->footer_field_3 : null;
+
         return $result->put('json', [
-            'order_references' => $this->references,
-            'type' => $this->invoice_type,
-            'discount' => $this->discount,
-            'custom_fields' => [
-                'sender_data' => $this->sender_data,
-                'vat_agent' => $this->vat_agent,
-                'footer_field_1' => $this->footer_field_1,
-                'footer_field_2' => $this->footer_field_2,
-                'footer_field_3' => $this->footer_field_3
-            ]
+            $requestData
         ]);
     }
 
