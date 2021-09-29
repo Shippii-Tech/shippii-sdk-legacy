@@ -1,4 +1,4 @@
-#### SHIPPII - PHP SDK (v1.8.4)
+#### SHIPPII - PHP SDK (v1.9.1)
 
 ---
 #### You can install the Shippii SDK for PHP:
@@ -10,7 +10,7 @@
 For complete setup guide please check [Shippii SDK Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
 
 ---
-## 29.09.2021 - 1.9.0
+## 29.09.2021 - 1.9.1
 > Breaking changes on how to call Enable Shipment
 - Check enable-shipment.php for full code example
 ---
