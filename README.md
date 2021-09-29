@@ -10,6 +10,10 @@
 For complete setup guide please check [Shippii SDK Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
 
 ---
+## 29.09.2021 - 1.9.0
+> Breaking changes on how to call Enable Shipment
+- Check enable-shipment.php for full code example
+---
 ## 07.09.2021 - ~~v1.8.5~~ v1.8.6
 > Fixed Invoice request to send only data that is passed.
 ---
