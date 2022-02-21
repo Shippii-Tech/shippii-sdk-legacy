@@ -29,6 +29,10 @@ class UpdateStoreOrder
     private $receiver_province = null;
     /** @var string $receiver_zip_code */
     private $receiver_zip_code;
+    /** @var string $receiver_company_name */
+    private $receiver_company_name;
+    /** @var string $shipping_group */
+    private $shipping_group;
 
     public function __construct(Shippii $shippii)
     {
@@ -145,6 +149,28 @@ class UpdateStoreOrder
         return $this;
     }
 
+    /**
+     * Set Receiver Company Name
+     * @param string $receiver_company_name
+     * @return UpdateStoreOrder
+     */
+    public function setReceiverCompanyName(string $receiver_company_name): UpdateStoreOrder
+    {
+        $this->receiver_company_name = $receiver_company_name;
+        return $this;
+    }
+
+    /**
+     * Set Order Shipping Group
+     * @param string $shipping_group
+     * @return UpdateStoreOrder
+     */
+    public function setShippingGroup(string $shipping_group): UpdateStoreOrder
+    {
+        $this->shipping_group = $shipping_group;
+        return $this;
+    }
+
     protected function prepareRequest(): TightencoCollection
     {
         $result = new TightencoCollection();
@@ -158,7 +184,9 @@ class UpdateStoreOrder
                 'receiver_address' => $this->receiver_address,
                 'receiver_city' => $this->receiver_city,
                 'receiver_province' => $this->receiver_province,
-                'receiver_zip_code' => $this->receiver_zip_code
+                'receiver_zip_code' => $this->receiver_zip_code,
+                'receiver_company_name' => $this->receiver_company_name,
+                'shipping_group' => $this->shipping_group
             ]);
         }
         return $result->put('json', [
@@ -170,7 +198,9 @@ class UpdateStoreOrder
             'receiver_address' => $this->receiver_address,
             'receiver_city' => $this->receiver_city,
             'receiver_province' => $this->receiver_province,
-            'receiver_zip_code' => $this->receiver_zip_code
+            'receiver_zip_code' => $this->receiver_zip_code,
+            'receiver_company_name' => $this->receiver_company_name,
+            'shipping_group' => $this->shipping_group
         ]);
     }
 

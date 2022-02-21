@@ -35,6 +35,7 @@ $faker = Factory::create('nb_NO');
 $order = new Order();
 $order->setReceiverFirstName($faker->firstName);
 $order->setReceiverLastName($faker->lastName);
+$order->setReceiverCompanyName($faker->company);
 $order->setReceiverAddress($faker->streetAddress);
 $order->setReceiverEmail($faker->email);
 $order->setReceiverMobile("+4790000000");

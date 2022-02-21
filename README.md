@@ -1,4 +1,4 @@
-#### SHIPPII - PHP SDK (v1.9.1)
+#### SHIPPII - PHP SDK (v1.9.2)
 
 ---
 #### You can install the Shippii SDK for PHP:
@@ -8,6 +8,36 @@
 + As a ZIP file of the SDK
 
 For complete setup guide please check [Shippii SDK Wiki](https://gitlab.vconnect.systems/shippii-public/sdk/-/wikis/home)
+
+---
+## 21.02.2022 - 1.9.2
+> Added new fields for create and update order. Also added new endpoint for test connection. It returns full information about the token that is used, i.e. Company, Company Object, Token scopes, Application webhooks, etc. Also updated "order-updated" webhook documentation - added missing info in "data" about service_point_id.
+
+> Create order - additions - setReceiverCompanyName method
+
+`$order = new Shippii\Orders\Order();`
+
+`$order->setReceiverCompanyName('Company Name Co');`
+
+> Update Order - additions - setReceiverCompanyName and setShippingGroup methods. Both fields can be left null if nothing needs to be updated.
+
+`$shippii = new Shippii($token, $testMode, $url);`
+
+`$order = $shippii->updateOrder();`
+
+`$order->setReceiverCompanyName('Company Name and Co'); // nullable`
+
+`$order->setShippingGroup('DHL'); // nullable`
+
+> Endpoint for test connection.
+
+`$shippii = new Shippii($token, $testMode, $url);`
+
+`$control = new Control($shippii);`
+
+`$response = $control->testShippiiConnection();`
+
+> Full code examples are in test_shippii_connection.php, test.php, update_store_order.php files.
 
 ---
 ## 29.09.2021 - 1.9.1

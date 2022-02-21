@@ -374,6 +374,9 @@ $orderObject = $wh->getOrderObject($payload)
             "quantity": 1
         }]
     },
-    "data": []
+    "data": {
+        "service_point_id": "3891249",
+        "consignor_service_point": "test comment 30 07 21"
+    }
 }
 ```
