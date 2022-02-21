@@ -261,6 +261,17 @@ class Order
     }
 
     /**
+     * Set Receiver Company Name
+     * @param string $companyName
+     * @return Order
+     */
+    public function setReceiverCompanyName(string $companyName): Order
+    {
+        $this->setReceiverData('receiver_company_name', $companyName);
+        return $this;
+    }
+
+    /**
      * Set Order Item
      * @param OrderItem $orderItem
      * @return Order

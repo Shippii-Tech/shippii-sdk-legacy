@@ -22,7 +22,7 @@ class Connector
 {
     const SHIPPII_PRODUCTION_URL = 'https://api.shippii.com/';
     const SHIPPII_SANDBOX_URL = 'https://test-api.shippii.com/';
-    const SHIPPII_SDK_VERSION = "1.9.1";
+    const SHIPPII_SDK_VERSION = "1.9.2";
     const SHIPPII_TIMEOUT_SECONDS = 40;
 
     /**

@@ -81,4 +81,13 @@ class Control
         return $this->shippii->connector->request('get', 'shipping/close', 'v1', $requestData)
             ->toArray();
     }
+
+    /**
+     * Test connection with Shippii
+     * @return array
+     */
+    public function testShippiiConnection(): array
+    {
+        return $this->shippii->connector->request('get', 'applications/get-details', 'v1', null)->toArray();
+    }
 }
