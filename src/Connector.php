@@ -22,8 +22,8 @@ class Connector
 {
     const SHIPPII_PRODUCTION_URL = 'https://api.shippii.com/';
     const SHIPPII_SANDBOX_URL = 'https://test-api.shippii.com/';
-    const SHIPPII_SDK_VERSION = "1.9.2";
-    const SHIPPII_TIMEOUT_SECONDS = 40;
+    const SHIPPII_SDK_VERSION = "1.9.3";
+    const SHIPPII_TIMEOUT_SECONDS = 300;
 
     /**
      * Running in test mode
@@ -172,25 +172,9 @@ class Connector
     {
         if ($exception instanceof ClientException) {
             return $this->parseClientErrors($exception);
-        } elseif ($exception instanceof GuzzleException) {
-            return $this->parseGuzzleErrors($exception);
         }
-    }
 
-    /**
-     * Parse Guzzle Itself Errors
-     *
-     * @param GuzzleException $guzzleException
-     * @return TightencoCollection
-     * @throws ShippiiServerErrorException
-     */
-    protected function parseGuzzleErrors(GuzzleException $guzzleException): TightencoCollection
-    {
-        $message = $guzzleException->getMessage();
-        if ($guzzleException->hasResponse()) {
-            $message = $guzzleException->getResponse()->getBody()->getContents();
-        }
-        throw new ShippiiServerErrorException($message);
+        throw new ShippiiServerErrorException($exception->getMessage());
     }
 
     /**
