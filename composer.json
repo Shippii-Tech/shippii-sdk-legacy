@@ -20,13 +20,13 @@
   "minimum-stability": "stable",
   "require-dev": {
     "fakerphp/faker": "^1.14",
-    "phpunit/phpunit": "^6|^8|^9.5"
+    "phpunit/phpunit": "^9.5"
   },
   "require": {
-    "php": ">=7.0",
+    "php": "^8.0",
     "php-units-of-measure/php-units-of-measure": "^2.1",
-    "tightenco/collect": "5.5.48|^8.0",
-    "guzzlehttp/guzzle": "~6.0|^7.0",
+    "tightenco/collect": "^8.0",
+    "guzzlehttp/guzzle": "^7.0",
     "ext-json": "*"
   }
 }
